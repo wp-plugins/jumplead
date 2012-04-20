@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Jumplead
-Plugin URI: http://www.jumplead.com
-Description: A plugin to add the Jumplead Lead Generation service to your blog
-Version: 1.0
+Plugin URI: http://wordpress.org/extend/plugins/jumplead/
+Description: This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
+Version: 1.1
 Author: Jumplead
 Author URI: http://www.jumplead.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
@@ -12,7 +12,7 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 /*  Copyright 2012  Adam Curtis  (email : adam@jumplead.com)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
