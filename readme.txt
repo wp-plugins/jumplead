@@ -4,7 +4,7 @@ Donate link: http://www.jumplead.com
 Tags: analytics, chat, crm, social media, twitter, linkedin, javascript, jumplead, lead generation
 Requires at least: 2.8.6
 Tested up to: 3.3.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
 
@@ -31,6 +31,9 @@ For more information visit:
 You can find your Tracker ID in your [Account Settings](https://www.jumplead.com/app/account/dashboard/ "Jumplead Account Settings page") page
 
 == Changelog ==
+
+= 1.2 =
+* Changed the example Tracker ID
 
 = 1.1 =
 * Updated Description
