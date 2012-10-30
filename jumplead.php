@@ -45,9 +45,11 @@ function jumplead_footer() {
 <!-- Start Jumplead Code -->
 <script type="text/javascript">
     try {
+        //<![CDATA[
         window.Jumplead||function(e){function j(){return["<",f,' onload="var d=',c,";d.getElementsByTagName('head')[0].",g,"(d.",d,"('script')).",h,"='",m,"?v=",e.version,"&a=",e.account,"'\"></",f,">"].join("")}var b=document,f="body",k=b[f],d="createElement",g="appendChild",n=b[d]("div")[g](b[d]("m")),a=b[d]("iframe"),h="src",i,c="document",m=("https:"==b.location.protocol?"https://":"http://")+"www.jumplead.com/jumplead.js";a.style.display="none";a.frameBorder="0";a.id="jl-if";a.allowTransparency="true";
         n[g](a);k.insertBefore(a,k.firstChild);try{a.contentWindow[c].open()}catch(o){e.domain=b.domain,i="javascript:var d="+c+".open();d.domain='"+b.domain+"';",a[h]=i+"void(0);"}try{var l=a.contentWindow[c];l.write(j());l.close()}catch(p){a[h]=i+'d.write("'+j().replace(/"/g,'\"')+'");d.close();'}}
-        ({account:"{$tracker_id}",version:1});
+        ({account:"{$tracker_id}",version:2});
+        //]]>
     } catch(e) {}
 </script>
 <!-- End Jumplead Code -->
