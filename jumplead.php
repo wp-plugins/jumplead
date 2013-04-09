@@ -3,13 +3,13 @@
 Plugin Name: Jumplead
 Plugin URI: http://wordpress.org/extend/plugins/jumplead/
 Description: This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
-Version: 1.4
+Version: 1.5
 Author: Jumplead
 Author URI: http://www.jumplead.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
-/*  Copyright 2014  Adam Curtis  (email : adam@jumplead.com)
+/*  Copyright 2013  Adam Curtis  (email : adam@jumplead.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as

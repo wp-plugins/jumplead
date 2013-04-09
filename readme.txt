@@ -1,16 +1,16 @@
 === Jumplead ===
 Contributors: jumplead
 Donate link: http://www.jumplead.com
-Tags: analytics, chat, crm, social media, twitter, linkedin, javascript, jumplead, lead generation
+Tags: analytics, chat, crm, social media, twitter, linkedin, javascript, jumplead, lead generation, marketing automation
 Requires at least: 2.8.6
-Tested up to: 3.3.1
-Stable tag: 1.2
+Tested up to: 3.5.1
+Stable tag: 1.5
 
 This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
 
 == Description ==
 
-Jumplead is a lead generation and management service that identifies website visitors and allows you to connect with them via live chat and social media.
+Jumplead is a marketing automation service that identifies website visitors and allows you to connect with them using lead capture forms, automation events, email marketing, live chat and social media.
 
 This plugin quickly installs the Jumplead code into your website or blog.
 
@@ -31,6 +31,9 @@ For more information visit:
 You can find your Tracker ID in your [Account Settings](https://www.jumplead.com/app/account/dashboard/ "Jumplead Account Settings page") page
 
 == Changelog ==
+
+= 1.5 =
+* Updated plugin description and tags
 
 = 1.2 =
 * Changed the example Tracker ID
