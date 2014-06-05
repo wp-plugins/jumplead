@@ -32,6 +32,11 @@ You can find your Tracker ID in your [Account Settings](https://www.jumplead.com
 
 == Changelog ==
 
+= 2.0 =
+* Added [jumplead_form] short tag for embeding forms.
+* Updated tracking code.
+* Updated banner.
+
 = 1.5 =
 * Updated plugin description and tags
 
