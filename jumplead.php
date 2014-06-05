@@ -3,7 +3,7 @@
 Plugin Name: Jumplead
 Plugin URI: http://wordpress.org/extend/plugins/jumplead/
 Description: This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
-Version: 1.5
+Version: 2.0
 Author: Jumplead
 Author URI: http://www.jumplead.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
@@ -26,7 +26,9 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
 
-//Admin page
+/**
+ * Admin page
+ */
 function jumplead_admin() {
 	include('jumplead_admin.php');
 }
@@ -37,22 +39,41 @@ function jumplead_admin_actions() {
 
 add_action('admin_menu', 'jumplead_admin_actions');
 
-
-//Insert into footer
-function jumplead_footer() {
+/**
+ * Tracking Code
+ */
+function jumplead_tracking_code() {
     $tracker_id = get_option('jumplead_trk_id');
-	echo <<< JUMPLEAD
+	echo <<<JUMPLEAD
+
 <!-- Start Jumplead Code -->
 <script type="text/javascript">
-    try {
-        //<![CDATA[
-        window.Jumplead||function(e){function j(){return["<",f,' onload="var d=',c,";d.getElementsByTagName('head')[0].",g,"(d.",d,"('script')).",h,"='",m,"?v=",e.version,"&a=",e.account,"'\"></",f,">"].join("")}var b=document,f="body",k=b[f],d="createElement",g="appendChild",n=b[d]("div")[g](b[d]("m")),a=b[d]("iframe"),h="src",i,c="document",m=("https:"==b.location.protocol?"https://":"http://")+"cdn.jumplead.com/tracking_code.js";a.style.display="none";a.frameBorder="0";a.id="jl-if";a.allowTransparency="true";
-        n[g](a);k.insertBefore(a,k.firstChild);try{a.contentWindow[c].open()}catch(o){e.domain=b.domain,i="javascript:var d="+c+".open();d.domain='"+b.domain+"';",a[h]=i+"void(0);"}try{var l=a.contentWindow[c];l.write(j());l.close()}catch(p){a[h]=i+'d.write("'+j().replace(/"/g,'\"')+'");d.close();'}}
-        ({account:"{$tracker_id}",version:2});
-        //]]>
-    } catch(e) {}
+    window.Jumplead||function(b,d){function k(){return["<",l,' onload="var d=',c,";d."+m+"('head')[0].",n,"(d.",p,"('script')).",e,"='",q,"'\"></",l,">"].join("")}var c="document",f=b[c],l="body",p="createElement",m="getElementsByTagName",r=f[m]("head")[0],n="appendChild",a=f[p]("iframe"),e="src",g,q="//cdn.jumplead.com/tracking_code.js";b.jump=b.jump||function(){(b.jump.q=b.jump.q||[]).push(arguments)};d.events=b.jump;a.style.display="none";r[n](a);try{a.contentWindow[c].open()}catch(s){d.domain=f.domain,
+    g="javascript:var d="+c+".open();d.domain='"+f.domain+"';",a[e]=g+"void(0);"}try{var h=a.contentWindow[c];h.write(k());h.close();h.params=d}catch(t){a[e]=g+'d.write("'+k().replace(/"/g,'\"')+'");d.close();',a[e].contentDocument.params=d}}
+    (window,{account:"{$tracker_id}",version:4});
 </script>
 <!-- End Jumplead Code -->
+
+
 JUMPLEAD;
 }
-add_action('wp_footer', 'jumplead_footer');
+
+// Put it in in <head>
+add_action('wp_head', 'jumplead_tracking_code');
+
+
+
+/**
+ * Short Tags
+ */
+
+// Embed form
+function jumplead_embed_form($atts) {
+    if (isset($atts['id']) && trim($atts['id']) != '') {
+        return '<div class="jlcf" data-id="' . $atts['id'] . '"></div>';
+    }
+
+	return 'Jumplead Error: Invalid Form ID';
+}
+// Create shortcode [jumplead_form]
+add_shortcode('jumplead_form', 'jumplead_embed_form');

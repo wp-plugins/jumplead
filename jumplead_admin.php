@@ -7,13 +7,18 @@ if(isset($_POST['jumplead_trk_id'])) {
 	<div class="updated"><p><strong><?php _e('Options saved.' ); ?></strong></p></div><?php
 }
 
-else {
-	//Normal page display
-	$jumplead_trk_id = get_option('jumplead_trk_id');
+//Normal page display
+$jumplead_trk_id = get_option('jumplead_trk_id');
 ?>
 <div class="wrap">
 	<div id="icon-options-general" class="icon32"><br></div>
-	<h2>Jumplead Settings</h2>
+
+	<h2>
+	    <a class="button-primary" style="float: right;" href="http://jumplead.com" target="_blank">Jumplead.com</a>
+	    Jumplead Settings
+    </h2>
+
+
 
 	<form name="jumplead_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 		<h3>Tracker Settings</h3>
@@ -37,6 +42,3 @@ else {
 		</p>
 	</form>
 </div>
-
-<?php
-}
