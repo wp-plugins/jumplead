@@ -27,7 +27,7 @@ For more information visit:
 
 == Frequently Asked Questions ==
 
-= Where Can I fFind My Jumplead Tracker ID? =
+= Where Can I Find My Jumplead Tracker ID? =
 
 You can find your Tracker ID in your [Account Settings](https://app.jumplead.com/settings/tracking-code "Jumplead Tracking Code Page") page.
 
