@@ -73,6 +73,9 @@ Conversion Forms can be embedded on any page using the Jumplead short code. To o
 
 == Upgrade Notice ==
 
+= 2.4 =
+No compatability changes.
+
 = 1.1 =
 Updated Compatability and Requirements
 
