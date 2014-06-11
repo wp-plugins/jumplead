@@ -43,8 +43,10 @@ add_action('admin_menu', 'jumplead_admin_actions');
  * Tracking Code
  */
 function jumplead_tracking_code() {
-    $tracker_id = get_option('jumplead_trk_id');
-	echo <<<JUMPLEAD
+    if (jumplead_is_tracker_id_valid()) {
+
+        $tracker_id = get_option('jumplead_tracker_id');
+	    echo <<<JUMPLEAD
 
 <!-- Start Jumplead Code -->
 <script type="text/javascript">
@@ -56,6 +58,7 @@ function jumplead_tracking_code() {
 
 
 JUMPLEAD;
+    }
 }
 
 // Put it in in <head>
@@ -77,3 +80,28 @@ function jumplead_embed_form($atts) {
 }
 // Create shortcode [jumplead_form]
 add_shortcode('jumplead_form', 'jumplead_embed_form');
+
+
+/**
+ * Helpers
+ */
+
+function jumplead_is_tracker_id_valid() {
+    $tracker_id = get_option('jumplead_tracker_id');
+
+    if ($tracker_id && is_string($tracker_id) && strlen($tracker_id) > 10) {
+        return true;
+    }
+
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
