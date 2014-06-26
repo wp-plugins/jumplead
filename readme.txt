@@ -3,8 +3,8 @@ Contributors: jumplead
 Donate link: http://www.jumplead.com
 Tags: analytics, chat, crm, social media, twitter, linkedin, javascript, jumplead, lead generation, marketing automation
 Requires at least: 2.8.6
-Tested up to: 3.5.1
-Stable tag: 1.5
+Tested up to: 3.9.1
+Stable tag: 2.5
 
 This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
 
@@ -24,13 +24,41 @@ For more information visit:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enter your Jumplead tracker id from Jumplead Settings
 
+
 == Frequently Asked Questions ==
 
-= Where can I find my Jumplead Tracker ID? =
+= Where Can I Find My Jumplead Tracker ID? =
 
-You can find your Tracker ID in your [Account Settings](https://www.jumplead.com/app/account/dashboard/ "Jumplead Account Settings page") page
+You can find your Tracker ID in your [Account Settings](https://app.jumplead.com/settings/tracking-code "Jumplead Tracking Code Page") page.
+
+
+= How Do I Track? =
+Once you've entered your Tracker ID, we'll automatically embed the Jumplead tracking code on every page.
+
+= How Do I Embed a Conversion Forms =
+Conversion Forms can be embedded on any page using the Jumplead short code. To obtain the short code for a Conversion Form:
+
+1. Login to your Jumplead account
+2. Select the Conversion Form you wish to embed
+3. Click Generate Form in the Form builder
+4. Copy the short code
+5. Paste into any page
 
 == Changelog ==
+
+= 2.5 =
+* Updated Jumplead Code to include plugin version.
+
+= 2.4 =
+* Added validation of Tracker ID.
+* Added set up wizard.
+* Added "How To Use" section on admin page.
+* Updated FAQs.
+
+= 2.0 =
+* Added [jumplead_form] short tag for embeding forms.
+* Updated tracking code.
+* Updated banner.
 
 = 1.5 =
 * Updated plugin description and tags
@@ -47,6 +75,9 @@ You can find your Tracker ID in your [Account Settings](https://www.jumplead.com
 * First Version
 
 == Upgrade Notice ==
+
+= 2.4 =
+No compatability changes.
 
 = 1.1 =
 Updated Compatability and Requirements
