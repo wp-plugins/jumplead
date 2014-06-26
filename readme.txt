@@ -4,7 +4,7 @@ Donate link: http://www.jumplead.com
 Tags: analytics, chat, crm, social media, twitter, linkedin, javascript, jumplead, lead generation, marketing automation
 Requires at least: 2.8.6
 Tested up to: 3.9.1
-Stable tag: 2.4
+Stable tag: 2.5
 
 This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
 
@@ -45,6 +45,9 @@ Conversion Forms can be embedded on any page using the Jumplead short code. To o
 5. Paste into any page
 
 == Changelog ==
+
+= 2.5 =
+* Updated Jumplead Code to include plugin version.
 
 = 2.4 =
 * Added validation of Tracker ID.
