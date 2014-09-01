@@ -4,7 +4,7 @@ Donate link: http://jumplead.com
 Tags: analytics,auto responders,autoresponders,chat,chat,contact form,CRM,drip campaigns,email,email autoresponders,email marketing,email nurture,form,free,in bound,in-bound,inbound,inbound marketing,inbound-marketing,javascript,jumplead,lead generation,linkedin,mail,marketing,marketing automation,marketing-automation,newsletter,notification,plugin,shortcode,shortcodes,social media,statistics,stats,tracking,twitter,widget,widgets
 Requires at least: 2.8.6
 Tested up to: 3.9.1
-Stable tag: 2.7.2
+Stable tag: 2.8
 
 Full Inbound Marketing Automation for WordPress.
 Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
@@ -77,6 +77,10 @@ Conversion Forms can be embedded on any page using the Jumplead short code. To o
 5. Paste into any page
 
 == Changelog ==
+
+= 2.8 =
+* Added Jumplead to the main menu.
+* Created landing page with Jumplead's features and links to Join Us and Login.
 
 = 2.7 =
 * Updated readme.txt with more information about Jumplead.
