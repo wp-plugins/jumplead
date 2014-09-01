@@ -4,7 +4,7 @@ Donate link: http://jumplead.com
 Tags: analytics,auto responders,autoresponders,chat,chat,contact form,CRM,drip campaigns,email,email autoresponders,email marketing,email nurture,form,free,in bound,in-bound,inbound,inbound marketing,inbound-marketing,javascript,jumplead,lead generation,linkedin,mail,marketing,marketing automation,marketing-automation,newsletter,notification,plugin,shortcode,shortcodes,social media,statistics,stats,tracking,twitter,widget,widgets
 Requires at least: 2.8.6
 Tested up to: 3.9.1
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 
 Full Inbound Marketing Automation for WordPress.
 Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
