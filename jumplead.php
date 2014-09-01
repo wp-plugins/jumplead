@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Jumplead
+Plugin Name: Jumplead Marketing Software
 Plugin URI: http://wordpress.org/extend/plugins/jumplead/
 Description: Full Inbound Marketing Automation for WordPress. Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
 Version: 2.7.1
