@@ -5,7 +5,7 @@ Plugin URI: http://wordpress.org/extend/plugins/jumplead/
 Description: Full Inbound Marketing Automation for WordPress. Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
 Version: 2.7
 Author: Jumplead
-Author URI: http://www.jumplead.com
+Author URI: http://jumplead.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 

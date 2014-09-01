@@ -44,7 +44,7 @@ Monitor conversion rates, traffic and campaigns. Track your search results posit
 
 ### Get Started
 
-Create a [Free Account at Jumplead.com](http://www.jumplead.com "Jumplead inbound marketing automation") to begin converting your inbound traffic into customers.
+Create a [Free Account at Jumplead.com](http://jumplead.com "Jumplead inbound marketing automation") to begin converting your inbound traffic into customers.
 
 
 
