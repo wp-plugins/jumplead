@@ -32,11 +32,19 @@ define('JUMPLEAD_VERSION', '2.7.2');
  */
 
 function jumplead_admin() {
-	include('jumplead_admin.php');
+	include('pages/jumplead.php');
+}
+
+function jumplead_admin_settings() {
+	include('pages/settings.php');
 }
 
 function jumplead_admin_actions() {
-	add_options_page('Jumplead', 'Jumplead', 1, 'Jumplead', 'jumplead_admin');
+    $icon = plugins_url('jumplead/assets/jumplead-icon.png');
+	add_menu_page('Jumplead', 'Jumplead', 1, 'menu_jumplead', 'jumplead_admin', $icon);
+
+	add_submenu_page('menu_jumplead', 'Settings', 'Settings', 1, 'menu_jumplead_settings', 'jumplead_admin_settings');
+
 }
 
 add_action('admin_menu', 'jumplead_admin_actions');

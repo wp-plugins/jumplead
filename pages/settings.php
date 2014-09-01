@@ -29,8 +29,8 @@ if ($jumplead_tracker_id_updated) {
 
 <div class="wrap">
 	<h2>
-	    <a class="button-primary" style="float: right;" href="http://jumplead.com" target="_blank">Jumplead.com</a>
-	    Jumplead
+	    <a class="button-primary" style="float: right;" href="http://jumplead.com" target="_blank">Login</a>
+	    Settings
     </h2>
 
 <?php
