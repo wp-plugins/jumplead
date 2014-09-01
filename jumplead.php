@@ -2,7 +2,7 @@
 /*
 Plugin Name: Jumplead
 Plugin URI: http://wordpress.org/extend/plugins/jumplead/
-Description: This plugin will allow you to quickly insert the Jumplead website tracking and chat code into your website or blog.
+Description: Full Inbound Marketing Automation for WordPress. Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
 Version: 2.7
 Author: Jumplead
 Author URI: http://www.jumplead.com
