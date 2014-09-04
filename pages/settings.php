@@ -3,7 +3,7 @@ $jumplead_tracker_id_updated = isset($_POST['jumplead_tracker_id']);
 
 if ($jumplead_tracker_id_updated) {
 	$jumplead_tracker_id = $_POST['jumplead_tracker_id'];
-	update_option('jumplead_tracker_id', $jumplead_tracker_id);
+	update_option('jumplead_tracker_id', trim($jumplead_tracker_id));
 }
 
 $jumplead_tracker_id_valid = jumplead_is_tracker_id_valid();
@@ -29,8 +29,8 @@ if ($jumplead_tracker_id_updated) {
 
 <div class="wrap">
 	<h2>
-	    <a class="button-primary" style="float: right;" href="http://jumplead.com" target="_blank">Jumplead.com</a>
-	    Jumplead
+	    <a class="button-primary" style="float: right;" href="http://jumplead.com" target="_blank">Login</a>
+	    Settings
     </h2>
 
 <?php
