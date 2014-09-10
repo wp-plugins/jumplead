@@ -9,7 +9,7 @@ Author URI: http://jumplead.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
-/*  Copyright 2013  Adam Curtis  (email : adam@jumplead.com)
+/*  Copyright 2013-2014 Mooloop (hello@mooloop.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as

@@ -41,20 +41,25 @@ function jumplead_automation_trigger_code() {
         $nameFirst  = trim(Jumplead::$data['name']);
         $nameLast   = trim(Jumplead::$data['name_last']);
 
-        $name       = trim($nameFirst . ' ' . $nameLast);
-        $email      = Jumplead::$data['email'];
-        $company    = Jumplead::$data['company'];
+        $name       = json_encode(trim($nameFirst . ' ' . $nameLast));
+        $email      = json_encode(Jumplead::$data['email']);
+        $company    = json_encode(Jumplead::$data['company']);
+
+        $automation = null;
+        if (isset(Jumplead::$data['automation_id']) && Jumplead::$data['automation_id']) {
+            $automation = json_encode(Jumplead::$data['automation_id']);
+        }
 
         echo <<<HTML
-<!-- JUMPLEAD -->
+<!-- Jumplead Automation Trigger -->
 <script type="text/javascript">
     //Trigger Jumplead Automation
     var contact = {
-        name: "$name",
-        email: "$email",
-        company: "$company"
+        name: $name,
+        email: $email,
+        company: $company
     };
-    jump('send', 'automation', 'trigger', null, contact);
+    jump('send', 'automation', 'trigger', $automation, contact);
 </script>
 HTML;
     }

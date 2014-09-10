@@ -1,14 +1,12 @@
-<?php include(JUMPLEAD_PATH_VIEW . 'message.php'); ?>
-
-<div class="wrap">
-	<h2>
-	    <a class="button-primary" style="float: right;" href="http://jumplead.com" target="_blank">Login</a>
-	    Settings
-    </h2>
+<?php
+include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
+?>
 
 	<form name="jumplead_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-        <h3>Tracker Settings</h3>
-        <p>You can find your Tracker ID in your <a href="https://app.jumplead.com/settings/tracking-code" target="_blank">Jumplead Settings</a>.</p>
+        <h3>Tracking</h3>
+        <p>
+            Once you've entered your Tracker ID, we'll automatically embed the Jumplead tracking code on every page.
+        </p>
 
 		<table class="form-table">
 			<tbody>
@@ -17,37 +15,25 @@
 					    <label for="jumplead_tracker_id">Tracker ID</label><br />
 					</th>
 					<td>
-						<input type="text" id="tracker_id" name="tracker_id" value="<?php echo $tracker_id ?>" size="20">
-						<span class="description">
-
-						Example: JL-1111111111-1
-						</span>
+						<input
+						    type="text" id="tracker_id" name="tracker_id" class="regular-text"
+						    value="<?php echo $tracker_id ?>" size="20"
+                        >
+						<p class="description">
+						    <a href="https://app.jumplead.com/settings/tracking-code" target="_blank">Get your tracking code</a>
+						</p>
 					</td>
 				</tr>
-			</tbody>
+            </tbody>
 		</table>
 
-		<p class="submit">
-			<input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes">
-		</p>
-	</form>
+        <hr />
 
-<?php
-    if ($tracker_id_valid) {
-?>
-
-	<h3>How To Use</h3>
-
-     <p>
-        <strong>Tracking</strong><br />
-        Once you've entered your Tracker ID, we'll automatically embed the Jumplead tracking code on every page.
-    </p>
-
-    <p>
-        <strong>Embedding Conversion Forms</strong><br />
-
-        Conversion Forms can be embedded on any page using the Jumplead short code.
-        To obtain the short code for a Conversion Form:
+        <h3>Adding Web Conversion Forms</h3>
+        <p>
+            Conversion Forms can be embedded on any page using the Jumplead short code.
+        </p>
+        <h4>Using the Short Code</h4>
         <ol>
             <li>Login to your <a href="https://app.jumplead.com" target="_blank">Jumplead account</a></li>
             <li>Select the <a href="https://app.jumplead.com/conversion/forms" target="_blank">Conversion Form</a> you wish to embed</li>
@@ -55,13 +41,35 @@
             <li>Copy the short code</li>
             <li>Paste into any page</li>
         </ol>
-    </p>
 
-    <hr />
+        <hr />
+
+        <h3>Create Contacts from Comments</h3>
+		<table class="form-table">
+			<tbody>
+				<tr>
+					<th>
+					    <label for="jumplead_contacts_from_comments">
+					        Enable
+					    </label>
+					</th>
+					<td>
+                        <fieldset>
+                            <label for="jumplead_contacts_from_comments">
+                                <input name="jumplead_contacts_from_comments" type="checkbox" value="1">
+                            </label>
+                        </fieldset>
+					</td>
+				</tr>
+            </tbody>
+		</table>
+
+        <hr />
+
+		<p class="submit">
+		    <input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes">
+		</p>
+	</form>
 <?php
-    }
+include(JUMPLEAD_PATH_VIEW . 'includes/footer.php');
 ?>
-</div>
-
-
-

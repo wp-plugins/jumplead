@@ -25,7 +25,14 @@ class JumpleadIntegration {
         $sql = 'SELECT * FROM ' . Jumplead::$tableFieldMapping . ' ' .
                'WHERE integration_id = %s AND form_id = %d';
 
-        return $wpdb->get_row($wpdb->prepare($sql, $this->id, $formId));
+        $row = $wpdb->get_row($wpdb->prepare($sql, $this->id, $formId));
+
+        if (!$row) {
+            $row = new stdClass();
+            $row->automation_id = '';
+        }
+
+        return $row;
     }
 
 
@@ -44,7 +51,7 @@ class JumpleadIntegration {
         $mappings = (array) $mappings;
 
         // Update existing
-        if ($currentMapping) {
+        if (isset($currentMapping->id)) {
             return $wpdb->update(Jumplead::$tableFieldMapping, $mappings, $where);
         }
 
@@ -120,6 +127,27 @@ class JumpleadIntegration {
             $jetpack->recoverData();
         }
 
+    }
+
+    static function getAllMappings()
+    {
+        global $wpdb;
+
+        $sql = 'SELECT * FROM ' . Jumplead::$tableFieldMapping;
+
+        return $wpdb->get_results($sql);
+    }
+
+    static function unlinkMappings($ids)
+    {
+        global $wpdb;
+
+        foreach ($ids as $id) {
+            $id = (int) $id;
+            if ($id > 0) {
+                $wpdb->delete(Jumplead::$tableFieldMapping, array('id' => $id));
+            }
+        }
     }
 
     static function getActive()

@@ -6,6 +6,7 @@
 class Jumplead
 {
     static $plugin = 'jumplead/jumplead.php';
+    static $path = '';
     static $tableFieldMapping = '';
     static $tableSubmissions = '';
     static $data = array();
@@ -13,6 +14,8 @@ class Jumplead
     static function boot()
     {
         global $wpdb;
+
+        self::$path = plugins_url('/', self::$plugin);
 
         // Install
         register_activation_hook(self::$plugin, 'Jumplead::activate');
@@ -25,10 +28,14 @@ class Jumplead
         // Tables
         self::$tableFieldMapping = $wpdb->prefix . 'jumplead_mapping';
         self::$tableSubmissions  = $wpdb->prefix . 'jumplead_submissions';
+
+        wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION );
     }
 
     static function adminMenu()
     {
+        // wp_enqueue_style('jumplead_styles', plugins_url('c/jumplead.css', self::$plugin), false, JUMPLEAD_VERSION );
+
         $icon = plugins_url('jumplead/assets/jumplead-icon.png');
     	add_menu_page('Jumplead', 'Jumplead', 1, 'jumplead', 'Jumplead::showPageJumplead', $icon);
 
@@ -38,11 +45,14 @@ class Jumplead
 
     static function showPageJumplead()
     {
+        $h2 = 'Jumplead';
 	    include(JUMPLEAD_PATH_VIEW . 'jumplead.php');
     }
 
     static function showPageSettings()
     {
+        $h2 = 'Jumplead Settings';
+
         $errors = [];
         $info = [];
 
@@ -89,14 +99,48 @@ class Jumplead
 
     static function showPageIntegrationsIndex()
     {
+        $h2 = 'Jumplead Integrations';
+
+        // Bulk Actions
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $bulkaction = isset($_POST['bulkaction']) ? $_POST['bulkaction'] : null;
+            $forms      = isset($_POST['forms']) ? $_POST['forms'] : null;
+
+            if ($bulkaction) {
+                switch ($bulkaction) {
+                    case 'unlink':
+                        JumpleadIntegration::unlinkMappings($forms);
+                }
+
+            }
+        }
+
+        // Show list
         $active     = JumpleadIntegration::getActive();
-        $inactive   = JumpleadIntegration::getInactive();
+        $mappings   = JumpleadIntegration::getAllMappings();
+
+
+        $mappingsLookup = [];
+        foreach ($active as $integration) {
+            $mappingsLookup[$integration->id] = [];
+
+            foreach ($mappings as $mapping) {
+                $integration_id = $mapping->integration_id;
+
+                if (isset($mappingsLookup[$integration_id])) {
+                    $mappingsLookup[$integration_id][$mapping->form_id] = $mapping;
+                }
+
+            }
+        }
 
 	    include(JUMPLEAD_PATH_VIEW . 'integrations.php');
     }
 
     static function showPageIntegrationsMapping()
     {
+        $h2 = 'Jumplead Integrations Mapping';
+
         $errors = [];
         $info = [];
 
@@ -119,6 +163,10 @@ class Jumplead
 
                 // Update mapping?
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Get automation_id
+                    $mapping->automation_id = $_POST['automation_id'];
+
+                    // Loop the fields
                     foreach ($integration::$fields as $field) {
                         $id = $field['id'];
                         $mapping->$id = isset($_POST[$id]) ? $_POST[$id] : null;
@@ -180,6 +228,7 @@ class Jumplead
                 `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 `integration_id` varchar(100) NOT NULL,
                 `form_id` int NOT NULL,
+                `automation_id` varchar(100),
                 `name` varchar(255),
                 `name_last` varchar(255),
                 `email` varchar(255),
@@ -193,6 +242,7 @@ class Jumplead
                 `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 `integration_id` varchar(100) NOT NULL,
                 `submission_id` int NOT NULL,
+                `automation_id` varchar(100),
                 `name` varchar(255),
                 `name_last` varchar(255),
                 `email` varchar(255),

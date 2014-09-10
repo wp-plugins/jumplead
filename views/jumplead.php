@@ -1,3 +1,9 @@
+<div class="wrap jumplead jumplead-splash">
+
+<?php
+include(JUMPLEAD_PATH_VIEW . 'includes/message.php');
+?>
+
 <div class="home" style="vertical-align: baseline; color: #4b4b4b; text-align: center; animation: fadein 1.5s; -moz-animation: fadein 1.5s; -webkit-animation: fadein 1.5s; -o-animation: fadein 1.5s; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; font-style: normal; font-variant: normal; font-weight: normal; font-size: 100%; line-height: normal; font-family: 'Lucida Grande' , 'Lucida Sans Unicode', sans-serif; background-attachment: fixed; background-color: #fff; margin: 0; padding: 0; border: 0;" bgcolor="#fff">
 <style type="text/css">
 .btn-group>.btn:hover { z-index: 2 !important; }
@@ -215,7 +221,24 @@ body.blog .share_options:hover { opacity: 1.0 !important; filter: alpha(opacity=
 
 </style>
 
-<header style="font-size: normal; line-height: normal; font-style: normal; font-weight: normal; font-variant: normal; vertical-align: baseline; display: block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; background-image: linear-gradient(#3590c2,#67b8e7 70%,#ffffff 100%); background-color: #3C96C8; margin: 0; padding: 0; border: 0;"><hgroup class="title" style="font-size: normal; line-height: normal; font-style: normal; font-weight: normal; font-variant: normal; vertical-align: baseline; display: block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 3% 5% 1%; border: 0;"><h1 style="vertical-align: baseline; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.65); font-style: normal; font-variant: normal; font-weight: 100; font-size: 2.2em; line-height: 1.2em; font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif; margin: 20px 0 16px; padding: 0; border: 0;">Convert more visitors into customers</h1>
+<header style="font-size: normal; line-height: normal; font-style: normal; font-weight: normal; font-variant: normal; vertical-align: baseline; display: block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; background-image: linear-gradient(#3590c2,#67b8e7 70%,#ffffff 100%); background-color: #3C96C8; margin: 0; padding: 0; border: 0;">
+
+ <hgroup class="header">
+    <img id="jumplead_logo" src="<?php echo Jumplead::$path; ?>/assets/robot-white.png" />
+    <div class="links">
+        <a href="http://jumplead.com/join-us" target="_blank">Create Free Account</a>
+        <a href="http://app.jumplead.com" target="_blank">Login</a>
+    </div>
+
+    <br class="clear" />
+
+    <h2>Jumplead</h2>
+    <br class="clear" />
+ </hgroup>
+
+
+    <hgroup class="title" style="font-size: normal; line-height: normal; font-style: normal; font-weight: normal; font-variant: normal; vertical-align: baseline; display: block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; border: 0;">
+<h1 style="vertical-align: baseline; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.65); font-style: normal; font-variant: normal; font-weight: 100; font-size: 2.2em; line-height: 1.2em; font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif; margin: 20px 0 16px; padding: 0; border: 0;">Convert more visitors into customers</h1>
         <h2 style="vertical-align: baseline; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.65); font-style: normal; font-variant: normal; font-weight: normal; font-size: 1.1em; line-height: 1.6em; font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif; margin: 0; padding: 0; border: 0;">Inbound marketing automation software</h2>
     </hgroup>
 
@@ -314,3 +337,7 @@ body.blog .share_options:hover { opacity: 1.0 !important; filter: alpha(opacity=
 </div>
         </footer>
 </div>
+
+<?php
+include(JUMPLEAD_PATH_VIEW . 'includes/footer.php');
+?>

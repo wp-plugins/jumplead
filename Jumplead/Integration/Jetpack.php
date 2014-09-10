@@ -54,9 +54,7 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
 
             // Fields
             $content = $form->post_content;
-            // $pattern = preg_quote('[contact-field') . '[^\]]+'. preg_quote('/]');
             $pattern = '\[contact\-field([^\]]+)/\]';
-            echo $pattern;
 
             if (preg_match_all('#' . $pattern . '#s', $content, $matches )) {
 
@@ -93,7 +91,8 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
                     'name'              => isset($formData[$mapping->name])       ? $formData[$mapping->name]       : null,
                     'name_last'         => isset($formData[$mapping->name_last])  ? $formData[$mapping->name_last]  : null,
                     'email'             => isset($formData[$mapping->email])      ? $formData[$mapping->email]      : null,
-                    'company'           => isset($formData[$mapping->company])    ? $formData[$mapping->company]    : null
+                    'company'           => isset($formData[$mapping->company])    ? $formData[$mapping->company]    : null,
+                    'automation_id'     => $mapping->automation_id
                 );
 
                 $wpdb->insert(Jumplead::$tableSubmissions, $data);
