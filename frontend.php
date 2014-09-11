@@ -1,16 +1,19 @@
 <?php
 
+
+function jumplead_comment($text) {
+    return '<!-- Jumplead: ' . $text . '; Wordpress Plugin v' . JUMPLEAD_VERSION . ' -->' . PHP_EOL;
+}
+
 /**
  * Tracking Code
  */
 function jumplead_tracking_code() {
-    $plugin_version = JUMPLEAD_VERSION;
     $tracker_id = get_option('jumplead_tracker_id');
 
-    echo "<!-- Start Jumplead Code Wordpress Plugin {$plugin_version} -->" . PHP_EOL;
+    echo jumplead_comment('Tracking Code');
 
     if (jumplead_is_tracker_id_valid()) {
-
 	    echo <<<JUMPLEAD
 <script type="text/javascript">
     window.Jumplead||function(b,d){function k(){return["<",l,' onload="var d=',c,";d."+m+"('head')[0].",n,"(d.",p,"('script')).",e,"='",q,"'\"></",l,">"].join("")}var c="document",f=b[c],l="body",p="createElement",m="getElementsByTagName",r=f[m]("head")[0],n="appendChild",a=f[p]("iframe"),e="src",g,q="//cdn.jumplead.com/tracking_code.js";b.jump=b.jump||function(){(b.jump.q=b.jump.q||[]).push(arguments)};d.events=b.jump;a.style.display="none";r[n](a);try{a.contentWindow[c].open()}catch(s){d.domain=f.domain,
@@ -20,17 +23,12 @@ function jumplead_tracking_code() {
 
 JUMPLEAD;
     } else {
-        echo "<!-- Jumplead Tracker ID '{$tracker_id}' is invalid -->" . PHP_EOL;
+        echo jumplead_comment('Tracker ID ' . $tracker_id . ' is invalid');
     }
-
-
-    echo "<!-- End Jumplead Code Wordpress Plugin {$plugin_version} -->" . PHP_EOL;
 }
 
 // Put it in in <head>
 add_action('wp_head', 'jumplead_tracking_code');
-
-
 
 /**
  * Trigger Automation Code
@@ -45,15 +43,21 @@ function jumplead_automation_trigger_code() {
         $email      = json_encode(Jumplead::$data['email']);
         $company    = json_encode(Jumplead::$data['company']);
 
-        $automation = null;
-        if (isset(Jumplead::$data['automation_id']) && Jumplead::$data['automation_id']) {
-            $automation = json_encode(Jumplead::$data['automation_id']);
+        // Populate automation, if there is one
+        $automation = 'null';
+        if (isset(Jumplead::$data['automation_id'])) {
+            $automation_id = Jumplead::$data['automation_id'];
+            if (!empty($automation_id)) {
+                $automation_id = json_encode(Jumplead::$data['automation_id']);
+                if ($automation_id) {
+                    $automation = $automation_id;
+                }
+            }
         }
 
+        echo jumplead_comment('Automation Trigger');
         echo <<<HTML
-<!-- Jumplead Automation Trigger -->
 <script type="text/javascript">
-    //Trigger Jumplead Automation
     var contact = {
         name: $name,
         email: $email,

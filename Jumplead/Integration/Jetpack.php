@@ -114,6 +114,7 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
             if ($data) {
                 Jumplead::$data = (array) $data;
 
+/*
                 $wpdb->delete(
                     Jumplead::$tableSubmissions,
                     array(
@@ -121,6 +122,7 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
                         'submission_id'     => $data->submission_id
                     )
                 );
+*/
             }
         }
     }

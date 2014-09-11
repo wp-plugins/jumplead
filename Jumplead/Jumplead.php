@@ -72,10 +72,6 @@ class Jumplead
         $tracker_id = get_option('jumplead_tracker_id', null);
         $tracker_id_valid = jumplead_is_tracker_id_valid($tracker_id);
 
-        if (!$tracker_id) {
-            $info[] = 'Enter your Tracker ID to get started.';
-        }
-
         // View
 	    include(JUMPLEAD_PATH_VIEW . 'settings.php');
     }
