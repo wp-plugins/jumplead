@@ -8,7 +8,6 @@ class Jumplead
     static $plugin = 'jumplead/jumplead.php';
     static $path = '';
     static $tableFieldMapping = '';
-    static $tableSubmissions = '';
     static $data = array();
 
     static function boot()
@@ -27,7 +26,6 @@ class Jumplead
 
         // Tables
         self::$tableFieldMapping = $wpdb->prefix . 'jumplead_mapping';
-        self::$tableSubmissions  = $wpdb->prefix . 'jumplead_submissions';
 
         wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION );
     }
@@ -206,13 +204,56 @@ class Jumplead
         }
     }
 
+    static function handleMultiSite($action)
+    {
+        // Active
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+        if (function_exists('is_multisite') && is_multisite()) {
+            // Is it networkwide?
+            if (isset($_GET['networkwide']) && ($_GET['networkwide'] == 1)) {
+
+                $current = $wpdb->blogid;
+
+                // Get all blog ids
+                $blogIds = $wpdb->get_col($wpdb->prepare("SELECT blog_id FROM $wpdb->blogs"));
+                foreach ($blogIds as $blogId) {
+                    switch_to_blog($blogId);
+
+                    if ($action == 'activate') {
+                        self::install();
+                    } else if ($action == 'deactivate') {
+                        self::uninstall();
+                    }
+                }
+
+                // Switch back to current WordPress
+                switch_to_blog($current);
+                return;
+            }
+        }
+
+        // Current WordPress only
+        if ($action == 'activate') {
+            self::install();
+        } else if ($action == 'deactivate') {
+            self::uninstall();
+        }
+    }
 
 
     static function activate()
     {
-        // Install
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        static::handleMultiSite('activate');
+    }
 
+    static function deactivate()
+    {
+        static::handleMultiSite('deactivate');
+    }
+
+    static function install()
+    {
         if (JUMPLEAD_VERSION != get_site_option('jumplead_db_version')) {
     	    global $wpdb;
 
@@ -240,27 +281,18 @@ class Jumplead
 
         	dbDelta($sql);
 
-        	// Submission Storage
-            $sql = "CREATE TABLE " . self::$tableSubmissions. " (
-                `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                `integration_id` varchar(100) NOT NULL,
-                `submission_id` int NOT NULL,
-                `automation_id` varchar(100),
-                `name` varchar(255),
-                `name_last` varchar(255),
-                `email` varchar(255),
-                `company` varchar(255)
-            ) $charset_collate;";
-
-        	dbDelta($sql);
-
-
             update_option('jumplead_db_version', JUMPLEAD_VERSION);
         }
     }
 
-    static function deactivate()
+    static function uninstall()
     {
+        global $wpdb;
+
         delete_option('jumplead_db_version');
+        delete_option('jumplead_tracker_id');
+        delete_option('jumplead_capture_comments');
+
+        $wpdb->query('DROP TABLE IF EXISTS ' . self::$tableFieldMapping);
     }
 }
