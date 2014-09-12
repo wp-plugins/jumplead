@@ -55,8 +55,14 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 					</th>
 					<td>
                         <fieldset>
-                            <label for="jumplead_contacts_from_comments">
-                                <input name="jumplead_contacts_from_comments" type="checkbox" value="1">
+                            <label for="capture_comments">
+                                <input name="capture_comments" type="checkbox" value="1"
+                                <?php
+                                if ($capture_comments) {
+                                    echo 'checked="checked"';
+                                }
+                                ?>
+                                >
                             </label>
                         </fieldset>
 					</td>

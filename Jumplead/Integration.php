@@ -18,6 +18,16 @@ class JumpleadIntegration {
         }
     }
 
+    function listForms()
+    {
+        return null;
+    }
+
+    function getForm($id)
+    {
+       return null;
+    }
+
     function getMapping($formId)
     {
         global $wpdb;
@@ -25,14 +35,7 @@ class JumpleadIntegration {
         $sql = 'SELECT * FROM ' . Jumplead::$tableFieldMapping . ' ' .
                'WHERE integration_id = %s AND form_id = %d';
 
-        $row = $wpdb->get_row($wpdb->prepare($sql, $this->id, $formId));
-
-        if (!$row) {
-            $row = new stdClass();
-            $row->automation_id = '';
-        }
-
-        return $row;
+        return $wpdb->get_row($wpdb->prepare($sql, $this->id, $formId));
     }
 
 
@@ -61,6 +64,11 @@ class JumpleadIntegration {
 
 
 
+    static $recovered = false;
+
+    static $cookies = array(
+        'name', 'name_last', 'email', 'company', 'automation_id'
+    );
     static $integrations = array(
         array(
             'id'        => 'formidable',
@@ -121,12 +129,25 @@ class JumpleadIntegration {
             }
         }
 
-        // Check for Data that needs sending to Jumplead
-        // - Jetpack
-        if ($jetpack = JumpleadIntegration::getById('jetpack')) {
-            $jetpack->recoverData();
+        // Wordpress Commennts
+        if (get_option('jumplead_capture_comments', false)) {
+            // JumpleadIntegrationComment is self contained,
+            // so don't need to storge the object
+            include(JUMPLEAD_PATH_SRC . '/Integration/Comment.php');
+            new JumpleadIntegrationComment(
+                array(
+                    'id'        => 'comment',
+                    'name'      => 'WordPress Comments',
+                    'class'     => 'JumpleadIntegrationComment',
+                    'include'   => null,
+                    'plugin'    => null,
+                    'active'    => true
+                )
+            );
         }
 
+        // Recover data we set in cookies
+        add_action('plugins_loaded', array('JumpleadIntegration', 'recoverData'));
     }
 
     static function getAllMappings()
@@ -176,19 +197,42 @@ class JumpleadIntegration {
         return null;
     }
 
+    static function recoverData()
+    {
+        // Only run recover onece per page load
+        if (self::$recovered == false) {
+            self::$recovered = true;
+            $data = array();
+
+            foreach (self::$cookies as $cookie) {
+                $cookieName = 'jumplead_capture_' . $cookie;
+                if (isset($_COOKIE[$cookieName])) {
+                    $data[$cookie] = $_COOKIE[$cookieName];
+                }
+            }
+
+            if (!empty($data)) {
+                Jumplead::$data = $data;
+                JumpleadIntegration::deleteCookies();
+            }
+        }
+    }
+
+
+    static function saveCookies($cookies)
+    {
+        foreach (self::$cookies as $cookie) {
+            if (isset($cookies[$cookie])) {
+                setcookie('jumplead_capture_' . $cookie, $cookies[$cookie], time() + 3600);
+            }
+        }
+    }
+
+    static function deleteCookies()
+    {
+        foreach (self::$cookies as $cookie) {
+            setcookie('jumplead_capture_' . $cookie, null, -1);
+            unset($_COOKIE['jumplead_capture_' . $cookie]);
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

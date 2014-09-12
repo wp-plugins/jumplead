@@ -35,10 +35,10 @@ define('JUMPLEAD_PATH_SRC', JUMPLEAD_PATH . 'Jumplead/');
 define('JUMPLEAD_PATH_VIEW', JUMPLEAD_PATH . 'views/');
 
 require_once(JUMPLEAD_PATH . 'helpers.php');
-require_once(JUMPLEAD_PATH . '/frontend.php');
 require_once(JUMPLEAD_PATH_SRC . '/Jumplead.php');
 require_once(JUMPLEAD_PATH . 'Jumplead/Integration.php');
 
 Jumplead::boot();
 JumpleadIntegration::boot();
 
+require_once(JUMPLEAD_PATH . '/frontend.php');

@@ -34,8 +34,6 @@ class Jumplead
 
     static function adminMenu()
     {
-        // wp_enqueue_style('jumplead_styles', plugins_url('c/jumplead.css', self::$plugin), false, JUMPLEAD_VERSION );
-
         $icon = plugins_url('jumplead/assets/jumplead-icon.png');
     	add_menu_page('Jumplead', 'Jumplead', 1, 'jumplead', 'Jumplead::showPageJumplead', $icon);
 
@@ -58,19 +56,25 @@ class Jumplead
 
         // Update?
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        	$tracker_id = $_POST['tracker_id'];
 
-        	if (jumplead_is_tracker_id_valid($tracker_id)) {
-        	    update_option('jumplead_tracker_id', trim($tracker_id));
+            // Comments
+            $capture_comments = isset($_POST['capture_comments']) ? (bool) $_POST['capture_comments'] : false;
+            update_option('jumplead_capture_comments', $capture_comments);
+
+            // Tracker
+            if (isset($_POST['tracker_id']) && jumplead_is_tracker_id_valid($_POST['tracker_id']) ) {
+        	    update_option('jumplead_tracker_id', trim($_POST['tracker_id']));
         	    $info[] = 'Tracker ID saved!';
         	} else {
         	    $errors[] = 'Tracker ID is not valid.';
         	}
         }
 
+        // Settings for view
+        $tracker_id         = get_option('jumplead_tracker_id', null);
+        $capture_comments   = get_option('jumplead_capture_comments', false);
 
-        $tracker_id = get_option('jumplead_tracker_id', null);
-        $tracker_id_valid = jumplead_is_tracker_id_valid($tracker_id);
+        $tracker_id_valid   = jumplead_is_tracker_id_valid($tracker_id);
 
         // View
 	    include(JUMPLEAD_PATH_VIEW . 'settings.php');
@@ -155,6 +159,7 @@ class Jumplead
 
                 if (!$mapping) {
                     $mapping = new stdClass();
+                    $mapping->automation_id = '';
                 }
 
                 // Update mapping?
@@ -193,6 +198,8 @@ class Jumplead
                         }
                     }
                 }
+
+
 
     	        include(JUMPLEAD_PATH_VIEW . 'integrations_mapping.php');
     	    }

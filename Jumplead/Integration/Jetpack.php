@@ -7,7 +7,7 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
         parent::__construct($data);
 
         // Hooks
-        add_action('grunion_pre_message_sent', array($this, 'captureForm'));
+        add_action('grunion_pre_message_sent', array($this, 'capture'));
     }
 
     function listForms()
@@ -74,56 +74,23 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
         return $return;
     }
 
-    function captureForm($submissionId)
+    function capture($submissionId)
     {
         global $wpdb;
 
         $formId = isset($_POST['contact-form-id']) ? (int) $_POST['contact-form-id'] : null;
         $formData = $_POST;
 
-        if ($formId && $formData) {
-            $mapping = $this->getMapping($formId);
+        if ($formId && $formData && $mapping = $this->getMapping($formId)) {
+            $data = array(
+                'name'          => isset($formData[$mapping->name])       ? $formData[$mapping->name]        : null,
+                'name_last'     => isset($formData[$mapping->name_last])  ? $formData[$mapping->name_last]   : null,
+                'email'         => isset($formData[$mapping->email])      ? $formData[$mapping->email]       : null,
+                'company'       => isset($formData[$mapping->company])    ? $formData[$mapping->company]     : null,
+                'automation_id' => $mapping->automation_id
+            );
 
-            if ($mapping) {
-                $data = array(
-                    'integration_id'    => $this->id,
-                    'submission_id'     => $submissionId,
-                    'name'              => isset($formData[$mapping->name])       ? $formData[$mapping->name]       : null,
-                    'name_last'         => isset($formData[$mapping->name_last])  ? $formData[$mapping->name_last]  : null,
-                    'email'             => isset($formData[$mapping->email])      ? $formData[$mapping->email]      : null,
-                    'company'           => isset($formData[$mapping->company])    ? $formData[$mapping->company]    : null,
-                    'automation_id'     => $mapping->automation_id
-                );
-
-                $wpdb->insert(Jumplead::$tableSubmissions, $data);
-            }
-        }
-    }
-
-
-    function recoverData()
-    {
-        if (isset($_GET['contact-form-id']) && isset($_GET['contact-form-sent'])) {
-            global $wpdb;
-
-            $sql = 'SELECT * FROM ' . Jumplead::$tableSubmissions . ' ' .
-                   'WHERE integration_id = %s AND submission_id = %d';
-
-            $data = $wpdb->get_row($wpdb->prepare($sql, 'jetpack', $_GET['contact-form-sent']));
-
-            if ($data) {
-                Jumplead::$data = (array) $data;
-
-/*
-                $wpdb->delete(
-                    Jumplead::$tableSubmissions,
-                    array(
-                        'integration_id'    => $data->integration_id,
-                        'submission_id'     => $data->submission_id
-                    )
-                );
-*/
-            }
+            JumpleadIntegration::saveCookies($data);
         }
     }
 }

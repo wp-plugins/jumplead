@@ -1,6 +1,5 @@
 <?php
 
-
 function jumplead_comment($text) {
     return '<!-- Jumplead: ' . $text . '; Wordpress Plugin v' . JUMPLEAD_VERSION . ' -->' . PHP_EOL;
 }
@@ -36,12 +35,13 @@ add_action('wp_head', 'jumplead_tracking_code');
 function jumplead_automation_trigger_code() {
     // Send data
     if (!empty(Jumplead::$data)) {
-        $nameFirst  = trim(Jumplead::$data['name']);
-        $nameLast   = trim(Jumplead::$data['name_last']);
+        // Get the data
+        $data = Jumplead::$data;
 
-        $name       = json_encode(trim($nameFirst . ' ' . $nameLast));
-        $email      = json_encode(Jumplead::$data['email']);
-        $company    = json_encode(Jumplead::$data['company']);
+        $nameFirst  = isset($data['name'])      ? trim($data['name'])       : '';
+        $nameLast   = isset($data['name_last']) ? trim($data['name_last'])  : '';
+        $email      = isset($data['email'])     ? json_encode($data['email'])   : 'null';
+        $company    = isset($data['company'])   ? json_encode($data['company']) : 'null';
 
         // Populate automation, if there is one
         $automation = 'null';
@@ -54,6 +54,9 @@ function jumplead_automation_trigger_code() {
                 }
             }
         }
+
+        // Concat name
+        $name = json_encode(trim($nameFirst . ' ' . $nameLast));
 
         echo jumplead_comment('Automation Trigger');
         echo <<<HTML
