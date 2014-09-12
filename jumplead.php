@@ -26,9 +26,6 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
 
-error_reporting(-1);
-ini_set('display_errors', 'On');
-
 /**
  * Define Constants for Jumplead Plugin
  */
