@@ -46,7 +46,7 @@ if (!get_option('jumplead_tracker_id', null)) {
             </div>
         </div>
 
-        <h4>All-in-one software for smarter marketing</h4>
+        <h4>All-in-one software for inbound marketing</h4>
 
         <div class="grid">
             <div class="feature">

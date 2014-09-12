@@ -10,6 +10,9 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
         add_action('grunion_pre_message_sent', array($this, 'capture'));
     }
 
+    /**
+     * @inherit
+     */
     function listForms()
     {
         $return = array();
@@ -39,6 +42,9 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
         return $return;
     }
 
+    /**
+     * @inherit
+     */
     function getForm($id)
     {
         $return = null;
@@ -74,6 +80,12 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
         return $return;
     }
 
+    /**
+     * Captures data from form submission and saves to cookie
+     *
+     * @param mixed $submissionId SubmissionID
+     * @return void
+     */
     function capture($submissionId)
     {
         global $wpdb;

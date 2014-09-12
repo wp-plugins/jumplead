@@ -7,9 +7,12 @@ class JumpleadIntegrationFormidable extends JumpleadIntegration {
         parent::__construct($data);
 
         // Hooks
-        add_action('frm_after_create_entry', array($this, 'customRecoverData'));
+        add_action('frm_after_create_entry', array($this, 'customCaptureAndRecoverData'));
     }
 
+    /**
+     * @inherit
+     */
     function listForms()
     {
         $modelForm = new FrmForm();
@@ -20,6 +23,10 @@ class JumpleadIntegrationFormidable extends JumpleadIntegration {
         $return = array();
 
         foreach ($forms as $form) {
+            if ((bool) $form->is_template) {
+                continue;
+            }
+
             $return[] = array(
                 'id' => $form->id,
                 'name' => $form->name,
@@ -30,6 +37,9 @@ class JumpleadIntegrationFormidable extends JumpleadIntegration {
         return $return;
     }
 
+    /**
+     * @inherit
+     */
     function getForm($id)
     {
         $return = null;
@@ -61,7 +71,12 @@ class JumpleadIntegrationFormidable extends JumpleadIntegration {
         return $return;
     }
 
-    function customRecoverData()
+    /**
+     * Capture and recoved the data from a form
+     *
+     * @return void
+     */
+    function customCaptureAndRecoverData()
     {
         $formId = isset($_POST['form_id']) ? $_POST['form_id'] : null;
         $formData = isset($_POST['item_meta']) ? $_POST['item_meta'] : null;

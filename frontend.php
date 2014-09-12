@@ -1,11 +1,17 @@
 <?php
+// Hooks
+add_action('wp_head', 'jumplead_tracking_code');
+add_action('wp_footer', 'jumplead_automation_trigger_code');
 
-function jumplead_comment($text) {
-    return '<!-- Jumplead: ' . $text . '; Wordpress Plugin v' . JUMPLEAD_VERSION . ' -->' . PHP_EOL;
-}
+// Create shortcode [jumplead_form]
+add_shortcode('jumplead_form', 'jumplead_embed_form');
+
 
 /**
- * Tracking Code
+ * Echo out the Jumplead Tracking Code
+ * Echos the tracking code or just a comment if tracker id is invalid
+ *
+ * @return void
  */
 function jumplead_tracking_code() {
     $tracker_id = get_option('jumplead_tracker_id');
@@ -26,11 +32,11 @@ JUMPLEAD;
     }
 }
 
-// Put it in in <head>
-add_action('wp_head', 'jumplead_tracking_code');
-
 /**
- * Trigger Automation Code
+ * Echo JavaScript to trigger an automation
+ * Only echos JS if there's data to be sent to Jumplead
+ *
+ * @return void
  */
 function jumplead_automation_trigger_code() {
     // Send data
@@ -72,7 +78,6 @@ HTML;
     }
 }
 
-add_action('wp_footer', 'jumplead_automation_trigger_code');
 
 
 /**
@@ -87,5 +92,3 @@ function jumplead_embed_form($atts) {
 
 	return 'Jumplead Error: Invalid Form ID';
 }
-// Create shortcode [jumplead_form]
-add_shortcode('jumplead_form', 'jumplead_embed_form');

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Create Contacts from Commenters
+ */
+
 class JumpleadIntegrationComment extends JumpleadIntegration {
 
     function __construct($data)
@@ -11,6 +15,11 @@ class JumpleadIntegrationComment extends JumpleadIntegration {
         }
     }
 
+    /**
+     * Captures data from comment submission and saves to cookie
+     *
+     * @return void
+     */
     function capture($id, $data) {
         if (isset($data->comment_author) && isset($data->comment_author_email)) {
 

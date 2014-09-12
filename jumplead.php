@@ -29,16 +29,28 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
+/**
+ * Define Constants for Jumplead Plugin
+ */
 define('JUMPLEAD_VERSION', '2.8.1');
 define('JUMPLEAD_PATH', dirname(__FILE__) . '/');
 define('JUMPLEAD_PATH_SRC', JUMPLEAD_PATH . 'Jumplead/');
 define('JUMPLEAD_PATH_VIEW', JUMPLEAD_PATH . 'views/');
 
+/**
+ * Load required files
+ */
 require_once(JUMPLEAD_PATH . 'helpers.php');
 require_once(JUMPLEAD_PATH_SRC . '/Jumplead.php');
 require_once(JUMPLEAD_PATH . 'Jumplead/Integration.php');
 
+/**
+ * Boot Jumplead and the Integrations
+ */
 Jumplead::boot();
 JumpleadIntegration::boot();
 
+/**
+ * Load the frontend functions
+ */
 require_once(JUMPLEAD_PATH . '/frontend.php');

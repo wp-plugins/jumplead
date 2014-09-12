@@ -1,50 +1,89 @@
 <?php
 /**
- * Jumplead Admin Setup
+ * Jumplead
  */
 
 class Jumplead
 {
+    /**
+     * Plugin's name
+     */
     static $plugin = 'jumplead/jumplead.php';
+
+    /**
+     * Path to Jumplead Plugin's folder
+     */
     static $path = '';
+
+    /**
+     * DB table name for field mapping
+     */
     static $tableFieldMapping = '';
+
+    /**
+     * Data to be used for triggering automations
+     */
     static $data = array();
 
+
+    /**
+     * Boot up Jumplead Plugin
+     * Sets up static variables, hooks and styles
+     */
     static function boot()
     {
         global $wpdb;
 
+        // Static Variables
         self::$path = plugins_url('/', self::$plugin);
+        self::$tableFieldMapping = $wpdb->prefix . 'jumplead_mapping';
 
         // Install
         register_activation_hook(self::$plugin, 'Jumplead::activate');
         register_deactivation_hook(self::$plugin, 'Jumplead::deactivate');
-        add_action('plugins_loaded', 'Jumplead::activate');
 
-        // Jumplead Admin
+        // Admin
         add_action('admin_menu', 'Jumplead::adminMenu');
 
-        // Tables
-        self::$tableFieldMapping = $wpdb->prefix . 'jumplead_mapping';
-
-        wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION );
+        // Styles
+        wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION);
     }
 
+    /**
+     * Add Jumple to Admin menu, along with subpages
+     *
+     * @return void
+     */
     static function adminMenu()
     {
         $icon = plugins_url('jumplead/assets/jumplead-icon.png');
+
+        // Main Menu
     	add_menu_page('Jumplead', 'Jumplead', 1, 'jumplead', 'Jumplead::showPageJumplead', $icon);
 
+        // Subpages
     	add_submenu_page('jumplead', 'Integrations', 'Integrations', 1, 'jumplead_integations', 'Jumplead::showPageIntegrations');
     	add_submenu_page('jumplead', 'Settings', 'Settings', 1, 'jumplead_settings', 'Jumplead::showPageSettings');
     }
 
+    // Page Controllers
+
+    /**
+     * Jumplead Landing Page
+     *
+     * @return void
+     */
     static function showPageJumplead()
     {
         $h2 = 'Jumplead';
 	    include(JUMPLEAD_PATH_VIEW . 'jumplead.php');
     }
 
+    /**
+     * Jumplead Settings Page
+     *
+     * @return void
+     */
     static function showPageSettings()
     {
         $h2 = 'Jumplead Settings';
@@ -62,7 +101,7 @@ class Jumplead
             // Tracker
             if (isset($_POST['tracker_id']) && jumplead_is_tracker_id_valid($_POST['tracker_id']) ) {
         	    update_option('jumplead_tracker_id', trim($_POST['tracker_id']));
-        	    $info[] = 'Tracker ID saved!';
+        	    $info[] = 'Settings Saved!';
         	} else {
         	    $errors[] = 'Tracker ID is not valid.';
         	}
@@ -78,13 +117,16 @@ class Jumplead
 	    include(JUMPLEAD_PATH_VIEW . 'settings.php');
     }
 
+    /**
+     * Jumplead Integrations Pages
+     * - Acts as a route for Jumplead Integration pages.
+     * - $_GET['subpage'] defines what page to load
+     *
+     * @return void
+     */
     static function showPageIntegrations()
     {
-        $page = null;
-
-        if (isset($_GET['subpage'])) {
-            $page = $_GET['subpage'];
-        }
+        $page = isset($_GET['subpage']) ? $_GET['subpage'] : null;
 
         switch ($page) {
             case 'mapping':
@@ -95,6 +137,13 @@ class Jumplead
         }
     }
 
+    /**
+     * Jumplead Integrations Page
+     * - Lists forms from active integrated plugins.
+     * - Handles unlinking of forms.
+     *
+     * @return void
+     */
     static function showPageIntegrationsIndex()
     {
         $h2 = 'Jumplead Integrations';
@@ -117,7 +166,7 @@ class Jumplead
         $active     = JumpleadIntegration::getActive();
         $mappings   = JumpleadIntegration::getAllMappings();
 
-
+        // Set up array of mappings for easy use
         $mappingsLookup = [];
         foreach ($active as $integration) {
             $mappingsLookup[$integration->id] = [];
@@ -128,13 +177,19 @@ class Jumplead
                 if (isset($mappingsLookup[$integration_id])) {
                     $mappingsLookup[$integration_id][$mapping->form_id] = $mapping;
                 }
-
             }
         }
 
 	    include(JUMPLEAD_PATH_VIEW . 'integrations.php');
     }
 
+    /**
+     * Jumplead Integrations Mapping Page (Subpage of Jumplead Integrations)
+     * - Sets up mappings
+     * - Sets automation
+     *
+     * @return void
+     */
     static function showPageIntegrationsMapping()
     {
         $h2 = 'Jumplead Integrations Mapping';
@@ -197,13 +252,96 @@ class Jumplead
                     }
                 }
 
-
-
     	        include(JUMPLEAD_PATH_VIEW . 'integrations_mapping.php');
     	    }
         }
     }
 
+    // Plugin Management
+
+    /**
+     * Plugin activation hook.
+     *
+     * @return void
+     */
+    static function activate()
+    {
+        static::handleMultiSite('activate');
+    }
+
+    /**
+     * Plugin deactivation hook.
+     *
+     * @return void
+     */
+    static function deactivate()
+    {
+        static::handleMultiSite('deactivate');
+    }
+
+    /**
+     * Installation script
+     * - Creates DB tables
+     * - Sets Jumplead verion in DB
+     *
+     * @return void
+     */
+    static function install()
+    {
+        if (JUMPLEAD_VERSION != get_site_option('jumplead_version')) {
+    	    global $wpdb;
+
+        	$charset_collate = '';
+
+        	if (!empty($wpdb->charset)) {
+        	  $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
+        	}
+
+        	if (!empty( $wpdb->collate)) {
+        	  $charset_collate .= " COLLATE {$wpdb->collate}";
+        	}
+
+            // Mappings
+            $sql = "CREATE TABLE " . self::$tableFieldMapping . " (
+                `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                `integration_id` varchar(100) NOT NULL,
+                `form_id` int NOT NULL,
+                `automation_id` varchar(100),
+                `name` varchar(255),
+                `name_last` varchar(255),
+                `email` varchar(255),
+                `company` varchar(255)
+            ) $charset_collate;";
+
+        	dbDelta($sql);
+
+            update_option('jumplead_version', JUMPLEAD_VERSION);
+        }
+    }
+
+    /**
+     * Installation script
+     * - Drops DB tables
+     * - Unsets Jumplead options
+     *
+     * @return void
+     */
+    static function uninstall()
+    {
+        global $wpdb;
+
+        delete_option('jumplead_version');
+        delete_option('jumplead_tracker_id');
+        delete_option('jumplead_capture_comments');
+
+        $wpdb->query('DROP TABLE IF EXISTS ' . self::$tableFieldMapping);
+    }
+
+    /**
+     * Runs an aution on single and multi-site installs
+     *
+     * @return void
+     */
     static function handleMultiSite($action)
     {
         // Active
@@ -239,60 +377,5 @@ class Jumplead
         } else if ($action == 'deactivate') {
             self::uninstall();
         }
-    }
-
-
-    static function activate()
-    {
-        static::handleMultiSite('activate');
-    }
-
-    static function deactivate()
-    {
-        static::handleMultiSite('deactivate');
-    }
-
-    static function install()
-    {
-        if (JUMPLEAD_VERSION != get_site_option('jumplead_db_version')) {
-    	    global $wpdb;
-
-        	$charset_collate = '';
-
-        	if (!empty($wpdb->charset)) {
-        	  $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
-        	}
-
-        	if (!empty( $wpdb->collate)) {
-        	  $charset_collate .= " COLLATE {$wpdb->collate}";
-        	}
-
-            // Mappings
-            $sql = "CREATE TABLE " . self::$tableFieldMapping . " (
-                `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                `integration_id` varchar(100) NOT NULL,
-                `form_id` int NOT NULL,
-                `automation_id` varchar(100),
-                `name` varchar(255),
-                `name_last` varchar(255),
-                `email` varchar(255),
-                `company` varchar(255)
-            ) $charset_collate;";
-
-        	dbDelta($sql);
-
-            update_option('jumplead_db_version', JUMPLEAD_VERSION);
-        }
-    }
-
-    static function uninstall()
-    {
-        global $wpdb;
-
-        delete_option('jumplead_db_version');
-        delete_option('jumplead_tracker_id');
-        delete_option('jumplead_capture_comments');
-
-        $wpdb->query('DROP TABLE IF EXISTS ' . self::$tableFieldMapping);
     }
 }

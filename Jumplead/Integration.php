@@ -1,14 +1,40 @@
 <?php
+/**
+ * Jumplead Integations
+ */
 
 include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 class JumpleadIntegration {
 
+    /**
+     * Integation's ID
+     */
     var $id        = '';
+
+    /**
+     * Integation's Name
+     */
     var $name      = '';
+
+    /**
+     * Integation's Class NAme
+     */
     var $class     = '';
+
+    /**
+     * File where class. Must be in Jumplead/Integration/ folder
+     */
     var $include   = '';
+
+    /**
+     * Namespace and file of plugin dependancy
+     */
     var $plugin    = '';
+
+    /**
+     * Active status
+     */
     var $active    = false;
 
     function __construct($data)
@@ -18,16 +44,35 @@ class JumpleadIntegration {
         }
     }
 
+    /**
+     * List forms belonging to integration
+     * - To be overwritten by most
+     *
+     * @return mixed List of forms
+     */
     function listForms()
     {
         return null;
     }
 
-    function getForm($id)
+    /**
+     * Get a specific form from integration
+     * - To be overwritten by most
+     *
+     * @param mixed $formId Id of integration's form
+     * @return mixed Form, or null
+     */
+    function getForm($formId)
     {
        return null;
     }
 
+    /**
+     * Get the mapping settings for a form
+     *
+     * @param mixed $formId Id of integration's form
+     * @return mixed Form, or null
+     */
     function getMapping($formId)
     {
         global $wpdb;
@@ -38,7 +83,13 @@ class JumpleadIntegration {
         return $wpdb->get_row($wpdb->prepare($sql, $this->id, $formId));
     }
 
-
+    /**
+     * Save mappings
+     *
+     * @param mixed $formId Id of integration's form
+     * @param array $mappings Array with mapping data
+     * @return mixed Out come of insert/update
+     */
     function saveMapping($formId, $mappings)
     {
         global $wpdb;
@@ -63,12 +114,27 @@ class JumpleadIntegration {
     }
 
 
+    // Static Variables
 
+    /**
+     * Had Jumplead already recovered form data form cookies
+     */
     static $recovered = false;
 
+    /**
+     * Cookies used to store form data
+     */
     static $cookies = array(
-        'name', 'name_last', 'email', 'company', 'automation_id'
+        'name',
+        'name_last',
+        'email',
+        'company',
+        'automation_id'
     );
+
+    /**
+     * Integrations avalible
+     */
     static $integrations = array(
         array(
             'id'        => 'formidable',
@@ -87,9 +153,14 @@ class JumpleadIntegration {
             'active'    => false
         )
     );
-
+    /**
+     * Arary of instances of active integrations
+     */
     static $integrationObjects = array();
 
+    /**
+     * Fields that can be mapped
+     */
     static $fields = array(
         array(
             'id'        => 'name',
@@ -114,6 +185,17 @@ class JumpleadIntegration {
         )
     );
 
+    // Static Functions
+
+    /**
+     * Boot script
+     * - Checks for avaliable plugins
+     * - Instantiates classes for active plugins
+     * - Check for capturing of commets
+     * - Adds hook to recover data from cookies
+     *
+     * @return void
+     */
     static function boot()
     {
         foreach (self::$integrations as $key => $integration) {
@@ -150,15 +232,24 @@ class JumpleadIntegration {
         add_action('plugins_loaded', array('JumpleadIntegration', 'recoverData'));
     }
 
+    /**
+     * Get all mappings
+     *
+     * @return array
+     */
     static function getAllMappings()
     {
         global $wpdb;
 
-        $sql = 'SELECT * FROM ' . Jumplead::$tableFieldMapping;
-
-        return $wpdb->get_results($sql);
+        return $wpdb->get_results('SELECT * FROM ' . Jumplead::$tableFieldMapping);
     }
 
+    /**
+     * Remove mappings
+     *
+     * @param array $ids IDs of mappings to remove
+     * @return void
+     */
     static function unlinkMappings($ids)
     {
         global $wpdb;
@@ -171,11 +262,21 @@ class JumpleadIntegration {
         }
     }
 
+    /**
+     * Get all active integations
+     *
+     * @return array
+     */
     static function getActive()
     {
         return self::$integrationObjects;
     }
 
+    /**
+     * Get all in active integations
+     *
+     * @return array
+     */
     static function getInactive()
     {
         $inactive = [];
@@ -189,6 +290,12 @@ class JumpleadIntegration {
         return $inactive;
     }
 
+
+    /**
+     * Get a instant of an active integration by it's ID
+     *
+     * @return object|null
+     */
     static function getById($id)
     {
         if (isset(self::$integrationObjects[$id])) {
@@ -197,6 +304,12 @@ class JumpleadIntegration {
         return null;
     }
 
+
+    /**
+     * Recovers data in cookies and gives it too Jumplead::$data
+     *
+     * @return array
+     */
     static function recoverData()
     {
         // Only run recover onece per page load
@@ -218,7 +331,12 @@ class JumpleadIntegration {
         }
     }
 
-
+    /**
+     * Saves data to cookies
+     *
+     * @param array $cookies Key - value array of data to save to cookies.
+     * @return void
+     */
     static function saveCookies($cookies)
     {
         foreach (self::$cookies as $cookie) {
@@ -228,6 +346,11 @@ class JumpleadIntegration {
         }
     }
 
+    /**
+     * Delete all Jumplead set cookies
+     *
+     * @return void
+     */
     static function deleteCookies()
     {
         foreach (self::$cookies as $cookie) {
