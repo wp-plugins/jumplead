@@ -198,38 +198,40 @@ class JumpleadIntegration {
      */
     static function boot()
     {
-        foreach (self::$integrations as $key => $integration) {
-            if (is_plugin_active($integration['plugin'])) {
-                self::$integrations[$key]['active'] = true;
+        if (jumplead_is_tracker_id_valid()) {
+            foreach (self::$integrations as $key => $integration) {
+                if (is_plugin_active($integration['plugin'])) {
+                    self::$integrations[$key]['active'] = true;
 
-                // Load
-                include(JUMPLEAD_PATH_SRC . '/Integration/' . $integration['include'] . '.php');
+                    // Load
+                    include(JUMPLEAD_PATH_SRC . '/Integration/' . $integration['include'] . '.php');
 
-                // Instanitate
-                $modelName = $integration['class'];
-                self::$integrationObjects[$integration['id']] = new $modelName($integration);
+                    // Instanitate
+                    $modelName = $integration['class'];
+                    self::$integrationObjects[$integration['id']] = new $modelName($integration);
+                }
             }
-        }
 
-        // Wordpress Commennts
-        if (get_option('jumplead_capture_comments', false)) {
-            // JumpleadIntegrationComment is self contained,
-            // so don't need to storge the object
-            include(JUMPLEAD_PATH_SRC . '/Integration/Comment.php');
-            new JumpleadIntegrationComment(
-                array(
-                    'id'        => 'comment',
-                    'name'      => 'WordPress Comments',
-                    'class'     => 'JumpleadIntegrationComment',
-                    'include'   => null,
-                    'plugin'    => null,
-                    'active'    => true
-                )
-            );
-        }
+            // Wordpress Commennts
+            if (get_option('jumplead_capture_comments', false)) {
+                // JumpleadIntegrationComment is self contained,
+                // so don't need to storge the object
+                include(JUMPLEAD_PATH_SRC . '/Integration/Comment.php');
+                new JumpleadIntegrationComment(
+                    array(
+                        'id'        => 'comment',
+                        'name'      => 'WordPress Comments',
+                        'class'     => 'JumpleadIntegrationComment',
+                        'include'   => null,
+                        'plugin'    => null,
+                        'active'    => true
+                    )
+                );
+            }
 
-        // Recover data we set in cookies
-        add_action('plugins_loaded', array('JumpleadIntegration', 'recoverData'));
+            // Recover data we set in cookies
+            add_action('plugins_loaded', array('JumpleadIntegration', 'recoverData'));
+        }
     }
 
     /**

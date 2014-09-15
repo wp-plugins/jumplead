@@ -10,6 +10,7 @@ class JumpleadIntegrationComment extends JumpleadIntegration {
     {
         parent::__construct($data);
 
+        // Hooks
         if (get_option('jumplead_capture_comments', false)) {
             add_action('wp_insert_comment', array($this, 'capture'), 10, 2);
         }
