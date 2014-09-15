@@ -125,7 +125,21 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
     </form>
 
 <?php
-    } // IF
+    } else {
+?>
+        <p>We couldn't find any compatible forms in your WordPress blog.</p>
+
+        <h4>Why not create a form with Jumplead?</h4>
+        <p>
+            Jumplead forms allow you to create contacts in the Jumplead CRM, trigger marketing automations, and progressively profile your contacts on several forms submissions.
+        </p>
+
+        <p>
+            <a class="button button-primary" href="http://app.jumplead.com" target="_blank">Login</a>
+        </p>
+<?php
+
+    }
 
 include(JUMPLEAD_PATH_VIEW . 'includes/footer.php');
 ?>
