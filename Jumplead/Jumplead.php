@@ -47,6 +47,9 @@ class Jumplead
 
         // Styles
         wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION);
+
+        // Filters
+        add_action('load-jumplead_page_jumplead_integrations', 'Jumplead::filterHasTrackerId');
     }
 
     /**
@@ -62,8 +65,22 @@ class Jumplead
     	add_menu_page('Jumplead', 'Jumplead', 1, 'jumplead', 'Jumplead::showPageJumplead', $icon);
 
         // Subpages
-    	add_submenu_page('jumplead', 'Integrations', 'Integrations', 1, 'jumplead_integations', 'Jumplead::showPageIntegrations');
+    	add_submenu_page('jumplead', 'Integrations', 'Integrations', 1, 'jumplead_integrations', 'Jumplead::showPageIntegrations');
     	add_submenu_page('jumplead', 'Settings', 'Settings', 1, 'jumplead_settings', 'Jumplead::showPageSettings');
+    }
+
+
+    /**
+     * Check for tracker ID, redirect to settings if not set
+     *
+     * @return void
+     */
+    static function filterHasTrackerId()
+    {
+        if (!jumplead_is_tracker_id_valid($_POST['tracker_id'])) {
+            wp_redirect(admin_url('admin.php?page=jumplead_settings'));
+            exit;
+        }
     }
 
     // Page Controllers
@@ -110,8 +127,12 @@ class Jumplead
         // Settings for view
         $tracker_id         = get_option('jumplead_tracker_id', null);
         $capture_comments   = get_option('jumplead_capture_comments', false);
-
         $tracker_id_valid   = jumplead_is_tracker_id_valid($tracker_id);
+
+        // Prompt for Tracker ID
+        if (empty($errors) && empty($info) && !$tracker_id_valid) {
+            $info[] = 'Please enter your Jumplead Tracker ID to use Jumplead.';
+        }
 
         // View
 	    include(JUMPLEAD_PATH_VIEW . 'settings.php');
