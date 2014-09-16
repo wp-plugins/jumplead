@@ -19,14 +19,18 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
 
         $query = new WP_Query(
             array(
+                // Everything but trash
+                'post_status' => array('publish', 'pending', 'draft', 'auto-draft', 'future', 'private'),
+                // Search for short code
                 's' => '[contact-form]'
             )
         );
 
+        wp_reset_postdata();
+
         // The Loop
         if ($query->have_posts()) {
         	while ($query->have_posts()) {
-
         		$query->the_post();
 
                 $return[] = array(
