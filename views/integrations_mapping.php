@@ -126,7 +126,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
         <p class="submit">
 			<input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes">
             <a class="button-secondary"
-                href="<?php echo esc_url(admin_url('admin.php?page=jumplead_integations')); ?>">Cancel</a>
+                href="<?php echo esc_url(admin_url('admin.php?page=jumplead_integrations')); ?>">Cancel</a>
         </p>
 	</form>
 <?php

@@ -57,7 +57,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 <?php
                 $i = 0;
                 foreach ($active as $integration) {
-                    $baseurl = esc_url(admin_url('admin.php?page=jumplead_integations&subpage=mapping&'));
+                    $baseurl = esc_url(admin_url('admin.php?page=jumplead_integrations&subpage=mapping&'));
 
                     foreach ($integration->listForms() as $form) {
                         $id = $form['id'];
