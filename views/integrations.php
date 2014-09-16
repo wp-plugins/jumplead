@@ -4,7 +4,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
     <h3>Web Forms</h3>
 <?php
     // Active
-    if (count($active) > 0) {
+    if ($formCount > 0) {
 ?>
     <form id="posts-filter" method="post">
 
@@ -56,10 +56,10 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
             <tbody id="the-list">
 <?php
                 $i = 0;
-                foreach ($active as $integration) {
+                foreach ($activeIntegrations as $integration) {
                     $baseurl = esc_url(admin_url('admin.php?page=jumplead_integrations&subpage=mapping&'));
 
-                    foreach ($integration->listForms() as $form) {
+                    foreach ($formsLookup[$integration->id] as $form) {
                         $id = $form['id'];
                         $url = $baseurl . 'integration='. $integration->id .'&form_id=' . $form['id'];
                         $name = $form['name'];
@@ -106,7 +106,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 <?php
                         $i++;
                     } // foreach $integration
-                } // foreach $active
+                } // foreach $activeIntegrations
 ?>
             </tbody>
         </table>
@@ -121,6 +121,10 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 
                 <input type="submit" class="button action" value="Apply">
             </div>
+
+            <div class="tablenav-pages one-page">
+                <span class="displaying-num"><?php echo $formCount; ?> <?php echo ($formCount == 1) ? 'form' : 'forms'; ?></span>
+            </div>
         </div>
     </form>
 
@@ -129,7 +133,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 ?>
         <p>We couldn't find any compatible forms in your WordPress blog.</p>
 
-        <h4>Why not create a form with Jumplead?</h4>
+        <h3>Why not create a form with Jumplead?</h3>
         <p>
             Jumplead forms allow you to create contacts in the Jumplead CRM, trigger marketing automations, and progressively profile your contacts on several forms submissions.
         </p>

@@ -184,8 +184,8 @@ class Jumplead
         }
 
         // Show list
-        $active     = JumpleadIntegration::getActive();
-        $mappings   = JumpleadIntegration::getAllMappings();
+        $activeIntegrations     = JumpleadIntegration::getActive();
+        $mappings               = JumpleadIntegration::getAllMappings();
 
         // Set up array of mappings for easy use
         $mappingsLookup = [];
@@ -199,6 +199,17 @@ class Jumplead
                     $mappingsLookup[$integration_id][$mapping->form_id] = $mapping;
                 }
             }
+        }
+
+        // Count the forms
+        $formCount = 0;
+        $formsLookup = [];
+        foreach ($activeIntegrations as $integration) {
+            $forms = $integration->listForms();
+
+            $formsLookup[$integration->id] = $forms;
+
+            $formCount += count($forms);
         }
 
 	    include(JUMPLEAD_PATH_VIEW . 'integrations.php');
