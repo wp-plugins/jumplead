@@ -122,6 +122,11 @@ class JumpleadIntegration {
     static $recovered = false;
 
     /**
+     * Jumplead Prefix for Cookies
+     */
+    static $cookiePrefix = 'jlwp_';
+
+    /**
      * Cookies used to store form data
      */
     static $cookies = array(
@@ -320,15 +325,13 @@ class JumpleadIntegration {
             $data = array();
 
             foreach (self::$cookies as $cookie) {
-                $cookieName = 'jumplead_capture_' . $cookie;
+                $cookieName = self::$cookiePrefix . $cookie;
                 if (isset($_COOKIE[$cookieName])) {
                     $data[$cookie] = $_COOKIE[$cookieName];
                 }
             }
-
             if (!empty($data)) {
                 Jumplead::$data = $data;
-                JumpleadIntegration::deleteCookies();
             }
         }
     }
@@ -343,21 +346,8 @@ class JumpleadIntegration {
     {
         foreach (self::$cookies as $cookie) {
             if (isset($cookies[$cookie])) {
-                setcookie('jumplead_capture_' . $cookie, $cookies[$cookie], time() + 3600);
+                setcookie(self::$cookiePrefix . $cookie, $cookies[$cookie], time() + 3600, '/');
             }
-        }
-    }
-
-    /**
-     * Delete all Jumplead set cookies
-     *
-     * @return void
-     */
-    static function deleteCookies()
-    {
-        foreach (self::$cookies as $cookie) {
-            setcookie('jumplead_capture_' . $cookie, null, -1);
-            unset($_COOKIE['jumplead_capture_' . $cookie]);
         }
     }
 }
