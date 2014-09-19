@@ -171,7 +171,12 @@ class Jumplead
 
         // Bulk Actions
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Top Bulkaction dropdown
             $bulkaction = isset($_POST['bulkaction']) ? $_POST['bulkaction'] : null;
+            if (!$bulkaction) {
+                // Bottom Bulkaction dropdown
+                $bulkaction = isset($_POST['bulkaction2']) ? $_POST['bulkaction2'] : null;
+            }
             $forms      = isset($_POST['forms']) ? $_POST['forms'] : null;
 
             if ($bulkaction) {
@@ -189,16 +194,10 @@ class Jumplead
 
         // Set up array of mappings for easy use
         $mappingsLookup = [];
-        foreach ($active as $integration) {
-            $mappingsLookup[$integration->id] = [];
 
-            foreach ($mappings as $mapping) {
-                $integration_id = $mapping->integration_id;
-
-                if (isset($mappingsLookup[$integration_id])) {
-                    $mappingsLookup[$integration_id][$mapping->form_id] = $mapping;
-                }
-            }
+        foreach ($mappings as $mapping) {
+            $key = (string) $mapping->integration_id . '_' . (string) $mapping->form_id;
+            $mappingsLookup[$key] = $mapping;
         }
 
         // Count the forms
@@ -206,9 +205,7 @@ class Jumplead
         $formsLookup = [];
         foreach ($activeIntegrations as $integration) {
             $forms = $integration->listForms();
-
             $formsLookup[$integration->id] = $forms;
-
             $formCount += count($forms);
         }
 

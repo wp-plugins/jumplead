@@ -60,23 +60,27 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
                     $baseurl = esc_url(admin_url('admin.php?page=jumplead_integrations&subpage=mapping&'));
 
                     foreach ($formsLookup[$integration->id] as $form) {
-                        $id = $form['id'];
-                        $url = $baseurl . 'integration='. $integration->id .'&form_id=' . $form['id'];
-                        $name = $form['name'];
+                        $url    = $baseurl . 'integration='. $integration->id .'&form_id=' . $form['id'];
+                        $name   = $form['name'];
 
-                        $mapping = isset($mappingsLookup[$integration->id][$id]) ? $mappingsLookup[$integration->id][$id] : null;
-                        $mappingId = ($mapping) ? $mapping->id : '-1';
+                        // Mapping
+                        $key        = (string) $integration->id . '_' . (string) $form['id'];
+                        $mapping    = isset($mappingsLookup[$key])
+                                        ? $mappingsLookup[$key]
+                                        : null;
+                        $mappingId  = ($mapping) ? $mapping->id : '-1';
 
+                        // Row colouring
                         $alternateClass = ($i%2 == 0) ? 'alternate' : '';
  ?>
 
                         <tr class="<?php echo $alternateClass; ?>">
                             <th scope="row" class="check-column">
-                                <label class="screen-reader-text" for="cb-select-<?php echo $id; ?>">
+                                <label class="screen-reader-text" for="cb-select-<?php echo $form['id']; ?>">
                                     Select <?php echo $name; ?>
                                 </label>
                                 <input
-                                    id="cb-select-<?php echo $id; ?>" type="checkbox" name="forms[]"
+                                    id="cb-select-<?php echo $form['id']; ?>" type="checkbox" name="forms[]"
                                     value="<?php echo $mappingId; ?>"
                                 >
                             </th>
@@ -114,7 +118,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
         <div class="tablenav bottom">
             <div class="alignleft actions bulkactions">
                 <label for="bulk-action-selector-bottom" class="screen-reader-text">Select bulk action</label>
-                <select name="bulkaction">
+                <select name="bulkaction2">
                     <option>Bulk Actions</option>
                     <option value="unlink">Unlink</option>
                 </select>
