@@ -105,8 +105,8 @@ class Jumplead
     {
         $h2 = 'Jumplead Settings';
 
-        $errors = [];
-        $info = [];
+        $errors = array();
+        $info = array();
 
         // Update?
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -193,7 +193,7 @@ class Jumplead
         $mappings               = JumpleadIntegration::getAllMappings();
 
         // Set up array of mappings for easy use
-        $mappingsLookup = [];
+        $mappingsLookup = array();
 
         foreach ($mappings as $mapping) {
             $key = (string) $mapping->integration_id . '_' . (string) $mapping->form_id;
@@ -202,7 +202,7 @@ class Jumplead
 
         // Count the forms
         $formCount = 0;
-        $formsLookup = [];
+        $formsLookup = array();
         foreach ($activeIntegrations as $integration) {
             $forms = $integration->listForms();
             $formsLookup[$integration->id] = $forms;
@@ -223,8 +223,8 @@ class Jumplead
     {
         $h2 = 'Jumplead Integrations Mapping';
 
-        $errors = [];
-        $info = [];
+        $errors = array();
+        $info = array();
 
         $integrationId  = sanitize_key($_GET['integration']);
         $formId         = (int) $_GET['form_id'];

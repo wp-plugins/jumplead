@@ -286,7 +286,7 @@ class JumpleadIntegration {
      */
     static function getInactive()
     {
-        $inactive = [];
+        $inactive = array();
 
         foreach (self::$integrations as $integration) {
             if (!$integration['active']) {
