@@ -10,7 +10,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 		<table class="form-table">
 			<tbody>
 <?php
-        foreach ($integration::$fields as $jumpleadField) {
+        foreach (JumpleadIntegration::$fields as $jumpleadField) {
             $id = $jumpleadField['id'];
             $fieldMap = isset($mapping->$id) ? $mapping->$id : null;
 ?>

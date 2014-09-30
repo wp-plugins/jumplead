@@ -250,7 +250,7 @@ class Jumplead
                     $mapping->automation_id = $_POST['automation_id'];
 
                     // Loop the fields
-                    foreach ($integration::$fields as $field) {
+                    foreach (JumpleadIntegration::$fields as $field) {
                         $id = $field['id'];
                         $mapping->$id = isset($_POST[$id]) ? $_POST[$id] : null;
 
