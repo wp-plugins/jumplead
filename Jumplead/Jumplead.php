@@ -295,7 +295,7 @@ class Jumplead
      */
     static function activate()
     {
-        static::handleMultiSite('activate');
+        self::handleMultiSite('activate');
     }
 
     /**
@@ -305,7 +305,7 @@ class Jumplead
      */
     static function deactivate()
     {
-        static::handleMultiSite('deactivate');
+        self::handleMultiSite('deactivate');
     }
 
     /**
