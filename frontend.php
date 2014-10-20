@@ -123,9 +123,17 @@ HTML;
 
 // Embed form
 function jumplead_embed_form($atts) {
-    if (isset($atts['id']) && trim($atts['id']) != '') {
-        return '<div class="jlcf" data-id="' . $atts['id'] . '"></div>';
+    // Ensure ID is set
+    if (!isset($atts['id']) || trim($atts['id']) == '') {
+	    return 'Jumplead Error: Invalid Form ID';
     }
 
-	return 'Jumplead Error: Invalid Form ID';
+    $dataStr = 'data-id="' . $atts['id'] . '"';
+
+    // JavaScript callback
+    if (isset($atts['callback'])) {
+        $dataStr .= ' data-callback="' . $atts['callback'] . '"';
+    }
+
+    return '<div class="jlcf" ' . $dataStr . '></div>';
 }
