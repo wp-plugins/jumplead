@@ -46,7 +46,7 @@ class Jumplead
         add_action('admin_menu', 'Jumplead::adminMenu');
 
         // Styles
-        wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION);
+        add_action('admin_enqueue_scripts', 'Jumplead::styles');
 
         // Filters
         add_action('load-jumplead_page_jumplead_integrations', 'Jumplead::filterHasTrackerId');
@@ -62,11 +62,21 @@ class Jumplead
         $icon = plugins_url('jumplead/assets/jumplead-icon.png');
 
         // Main Menu
-    	add_menu_page('Jumplead', 'Jumplead', 1, 'jumplead', 'Jumplead::showPageJumplead', $icon);
+    	add_menu_page('Jumplead', 'Jumplead', 'edit_pages', 'jumplead', 'Jumplead::showPageJumplead', $icon);
 
         // Subpages
-    	add_submenu_page('jumplead', 'Integrations', 'Integrations', 1, 'jumplead_integrations', 'Jumplead::showPageIntegrations');
-    	add_submenu_page('jumplead', 'Settings', 'Settings', 1, 'jumplead_settings', 'Jumplead::showPageSettings');
+    	add_submenu_page('jumplead', 'Integrations', 'Integrations', 'edit_pages', 'jumplead_integrations', 'Jumplead::showPageIntegrations');
+    	add_submenu_page('jumplead', 'Settings', 'Settings', 'edit_pages', 'jumplead_settings', 'Jumplead::showPageSettings');
+    }
+
+    /**
+     * Add Jumplead admin styles
+     *
+     * @return void
+     */
+    static function styles()
+    {
+        wp_enqueue_style('jumplead_styles', self::$path . 'c/jumplead.css', array('dashicons'), JUMPLEAD_VERSION);
     }
 
 
@@ -77,7 +87,8 @@ class Jumplead
      */
     static function filterHasTrackerId()
     {
-        if (!jumplead_is_tracker_id_valid($_POST['tracker_id'])) {
+
+        if (!jumplead_is_tracker_id_valid()) {
             wp_redirect(admin_url('admin.php?page=jumplead_settings'));
             exit;
         }
