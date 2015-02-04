@@ -156,6 +156,14 @@ class JumpleadIntegration {
             'include'   => 'Jetpack',
             'plugin'    => 'jetpack/jetpack.php',
             'active'    => false
+        ),
+        array(
+            'id'        => 'cf7',
+            'name'      => 'Contact Form 7',
+            'class'     => 'JumpleadIntegrationContactForm7',
+            'include'   => 'ContactForm7',
+            'plugin'    => 'contact-form-7/wp-contact-form-7.php',
+            'active'    => false
         )
     );
     /**

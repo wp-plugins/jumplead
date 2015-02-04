@@ -92,8 +92,6 @@ class JumpleadIntegrationJetpack extends JumpleadIntegration {
      */
     function capture($submissionId)
     {
-        global $wpdb;
-
         $formId = isset($_POST['contact-form-id']) ? (int) $_POST['contact-form-id'] : null;
         $formData = $_POST;
 

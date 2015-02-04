@@ -39,6 +39,62 @@ JUMPLEAD;
  * @return void
  */
 function jumplead_automation_trigger_code() {
+
+    echo jumplead_comment('Jumplead WordPress');
+    echo <<<HTML
+<script type="text/javascript">
+    var JumpleadWordPress = {
+        createCookie: function (name,value,days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime()+(days*24*60*60*1000));
+                var expires = "; expires="+date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name+"="+value+expires+"; path=/";
+        },
+        readCookie: function(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        },
+        eraseCookie: function(name) {
+            this.createCookie(name,"",-1);
+        },
+        init: function() {
+            // Look for a Contact From 7 form in the page.
+            var elems = document.getElementsByTagName('form'),
+                poll = false;
+
+            for (var i in elems) {
+                var className = elems[i].className || null;
+
+                if (className && className.indexOf('wpcf7-form') > -1) {
+                    poll = true;
+                    break;
+                }
+            }
+
+            if (poll) {
+                JumpleadWordPress.cookiePoll();
+            }
+        },
+        cookiePoll: function() {
+            console.log('Poll');
+
+            setTimeout(function() { JumpleadWordPress.cookiePoll(); }, 500);
+        }
+    };
+
+    JumpleadWordPress.init();
+</script>
+HTML;
+
     // Send data
     if (!empty(Jumplead::$data)) {
         // Get the data
@@ -67,32 +123,6 @@ function jumplead_automation_trigger_code() {
         echo jumplead_comment('Automation Trigger');
         echo <<<HTML
 <script type="text/javascript">
-    var JumpleadWordPress = {
-        createCookie: function (name,value,days) {
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime()+(days*24*60*60*1000));
-                var expires = "; expires="+date.toGMTString();
-            }
-            else var expires = "";
-            document.cookie = name+"="+value+expires+"; path=/";
-        },
-        readCookie: function(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for(var i=0;i < ca.length;i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1,c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-            }
-            return null;
-        },
-        eraseCookie: function(name) {
-            this.createCookie(name,"",-1);
-        }
-    };
-
-
     var contact = {
         name: $name,
         email: $email,
@@ -101,7 +131,6 @@ function jumplead_automation_trigger_code() {
     jump('send', 'automation', 'trigger', $automation, contact);
 
 HTML;
-
 
         foreach (JumpleadIntegration::$cookies as $cookie) {
             echo PHP_EOL . '    '; // Nice indenting
