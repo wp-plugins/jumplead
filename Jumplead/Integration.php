@@ -354,7 +354,10 @@ class JumpleadIntegration {
     {
         foreach (self::$cookies as $cookie) {
             if (isset($cookies[$cookie])) {
-                setcookie(self::$cookiePrefix . $cookie, $cookies[$cookie], time() + 3600, '/');
+                // Use setraw and rawrulencode to prevent PHP replacing spaces with +
+                $name = self::$cookiePrefix . $cookie;
+                $value = rawurlencode($cookies[$cookie]);
+                setrawcookie($name, $value, time() + 3600, '/');
             }
         }
     }
