@@ -2,7 +2,7 @@
     var JumpleadWP = {
         cookiePoll: function() {
             JumpleadWP.triggerAutomation();
-            setTimeout(function() { JumpleadWP.cookiePoll(); }, 2000);
+            setTimeout(function() { JumpleadWP.cookiePoll(); }, 1000);
         },
         triggerAutomation: function() {
             var name = JumpleadWP.readCookie('jlwp_name');

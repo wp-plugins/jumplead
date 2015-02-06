@@ -41,7 +41,6 @@ function jumplead_automation_trigger_code() {
 	wp_enqueue_script('jumplead.js', plugins_url('j/jumplead.js', __FILE__ ), array(), JUMPLEAD_VERSION, true);
 }
 
-
 /**
  * Jumplead Form Short Tag
  *

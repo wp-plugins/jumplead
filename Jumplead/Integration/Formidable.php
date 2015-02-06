@@ -7,7 +7,7 @@ class JumpleadIntegrationFormidable extends JumpleadIntegration {
         parent::__construct($data);
 
         // Hooks
-        add_action('frm_after_create_entry', array($this, 'customCaptureAndRecoverData'));
+        add_action('frm_after_create_entry', array($this, 'capture'));
     }
 
     /**
@@ -76,19 +76,21 @@ class JumpleadIntegrationFormidable extends JumpleadIntegration {
      *
      * @return void
      */
-    function customCaptureAndRecoverData()
+    function capture()
     {
         $formId = isset($_POST['form_id']) ? $_POST['form_id'] : null;
         $formData = isset($_POST['item_meta']) ? $_POST['item_meta'] : null;
 
         if ($formId && $formData && $mapping = $this->getMapping($formId)) {
-            Jumplead::$data = array(
+            $data = array(
                 'name'          => isset($formData[$mapping->name])        ? $formData[$mapping->name]          : null,
                 'name_last'     => isset($formData[$mapping->name_last])   ? $formData[$mapping->name_last]     : null,
                 'email'         => isset($formData[$mapping->email])       ? $formData[$mapping->email]         : null,
                 'company'       => isset($formData[$mapping->company])     ? $formData[$mapping->company]       : null,
                 'automation_id' => $mapping->automation_id
             );
+
+            JumpleadIntegration::saveCookies($data);
         }
     }
 }

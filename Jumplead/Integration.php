@@ -241,9 +241,6 @@ class JumpleadIntegration {
                     )
                 );
             }
-
-            // Recover data we set in cookies
-            add_action('plugins_loaded', array('JumpleadIntegration', 'recoverData'));
         }
     }
 
@@ -317,31 +314,6 @@ class JumpleadIntegration {
             return self::$integrationObjects[$id];
         }
         return null;
-    }
-
-
-    /**
-     * Recovers data in cookies and gives it too Jumplead::$data
-     *
-     * @return array
-     */
-    static function recoverData()
-    {
-        // Only run recover onece per page load
-        if (self::$recovered == false) {
-            self::$recovered = true;
-            $data = array();
-
-            foreach (self::$cookies as $cookie) {
-                $cookieName = self::$cookiePrefix . $cookie;
-                if (isset($_COOKIE[$cookieName])) {
-                    $data[$cookie] = $_COOKIE[$cookieName];
-                }
-            }
-            if (!empty($data)) {
-                Jumplead::$data = $data;
-            }
-        }
     }
 
     /**
