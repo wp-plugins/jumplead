@@ -3,7 +3,7 @@
 Plugin Name: Jumplead Marketing Software
 Plugin URI: http://wordpress.org/extend/plugins/jumplead/
 Description: Full Inbound Marketing Automation for WordPress. Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
-Version: 3.0.8
+Version: 3.1.0
 Author: Jumplead
 Author URI: http://jumplead.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
@@ -29,7 +29,7 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 /**
  * Define Constants for Jumplead Plugin
  */
-define('JUMPLEAD_VERSION', '3.0.8');
+define('JUMPLEAD_VERSION', '3.1.0');
 define('JUMPLEAD_PATH', dirname(__FILE__) . '/');
 define('JUMPLEAD_PATH_SRC', JUMPLEAD_PATH . 'Jumplead/');
 define('JUMPLEAD_PATH_VIEW', JUMPLEAD_PATH . 'views/');

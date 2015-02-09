@@ -1,10 +1,10 @@
 === Jumplead Marketing Software ===
 Contributors: Jumplead
 Donate link: http://jumplead.com
-Tags: analytics,auto responders,autoresponders,chat,chat,contact form,CRM,drip campaigns,email,email autoresponders,email marketing,email nurture,form,free,in bound,in-bound,inbound,inbound marketing,inbound-marketing,javascript,jumplead,lead generation,linkedin,mail,marketing,marketing automation,marketing-automation,newsletter,notification,plugin,shortcode,shortcodes,social media,statistics,stats,tracking,twitter,widget,widgets,jetpack,formidable
+Tags: analytics,auto responders,autoresponders,chat,chat,contact form,CRM,drip campaigns,email,email autoresponders,email marketing,email nurture,form,free,in bound,in-bound,inbound,inbound marketing,inbound-marketing,javascript,jumplead,lead generation,linkedin,mail,marketing,marketing automation,marketing-automation,newsletter,notification,plugin,shortcode,shortcodes,social media,statistics,stats,tracking,twitter,widget,widgets,jetpack,formidable,contact form 7,cf7
 Requires at least: 2.8.6
 Tested up to: 4.0
-Stable tag: 3.0.8
+Stable tag: 3.1.0
 
 Full Inbound Marketing Automation for WordPress.
 Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
@@ -27,7 +27,7 @@ Jumplead combines contact level analytics and email marketing with an onboard CR
 Identify and connect with prospects while they are active on your website; identify visiting organisations and returning prospects. Trigger sales team notifications.
 
 #### 2. Convert visitors to leads with Conversion Forms and Landing Pages.
-Capture and profile your leads across web forms. Create, manage and score them automatically. Integrate Jumplead with your existing Jetpack and Formidable web forms. Create contacts from your blog comments.
+Capture and profile your leads across web forms. Create, manage and score them automatically. Integrate Jumplead with your existing Jetpack, Formidable and Contact Form 7 web forms. Create contacts from your blog comments.
 
 #### 3. Trigger targeted marketing with Marketing Automation.
 Use lead activity to automate sales team notifications, nurture autoresponders and lifecycle stage changes. Use existing Jetpack and Formidable forms to trigger marketing automations.
@@ -86,6 +86,10 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 
 
 == Changelog ==
+
+= 3.1 =
+* Integration with Contact Form 7.
+* Reworked how form data is submitted to Jumplead.
 
 = 3.0 =
 * Integration with Jet Pack and Formidable Forms.
