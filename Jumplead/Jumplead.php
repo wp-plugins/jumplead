@@ -260,10 +260,17 @@ class Jumplead
                     // Get automation_id
                     $mapping->automation_id = $_POST['automation_id'];
 
+                    // Track fields from form that are matched
+                    $fieldsInUse = [];
+
                     // Loop the fields
                     foreach (JumpleadIntegration::$fields as $field) {
                         $id = $field['id'];
                         $mapping->$id = isset($_POST[$id]) ? $_POST[$id] : null;
+
+                        if ($mapping->$id) {
+                            $fieldsInUse[] = $mapping->$id;
+                        }
 
                         if ($field['required']) {
                             if (!$mapping->$id || strlen($mapping->$id) < 1) {
@@ -276,7 +283,22 @@ class Jumplead
                             foreach ($field['sub'] as $subField) {
                                 $id = $subField['id'];
                                 $mapping->$id = isset($_POST[$id]) ? $_POST[$id] : null;
+
+                                if ($mapping->$id) {
+                                    $fieldsInUse[] = $mapping->$id;
+                                }
                             }
+                        }
+                    }
+
+                    // Check no field is mapped more than once
+                    if (empty($errors)) {
+                        $lengthBefore   = count($fieldsInUse);
+                        // Remove duplicates from array to see if count changes
+                        $lengthAfter    = count(array_unique($fieldsInUse));
+
+                        if ($lengthBefore != $lengthAfter) {
+                            $errors[] = 'A form field may only mapped to one Jumplead field.';
                         }
                     }
 

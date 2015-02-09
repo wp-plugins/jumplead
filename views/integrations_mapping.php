@@ -16,14 +16,8 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 ?>
 				<tr>
 					<th>
-                        <label>
-<?php
-                            echo $jumpleadField['name'];
-                            if ($jumpleadField['required']) {
-                                echo ' *';
-                            }
-?>
-                        </label>
+                        <label><?php echo $jumpleadField['name']; ?></label>
+                        <p class="description"><?php echo ($jumpleadField['required']) ? 'Required' : ''; ?></p>
 					</th>
 					<td>
                         <select name="<?php echo $id; ?>">
@@ -48,8 +42,8 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
                         </select>
 <?php
                         if (isset($jumpleadField['sub'])) {
-                            foreach ($jumpleadField['sub'] as $jumpleadField) {
-                                $id = $jumpleadField['id'];
+                            foreach ($jumpleadField['sub'] as $jumpleadFieldSub) {
+                                $id = $jumpleadFieldSub['id'];
                                 $fieldMap = isset($mapping->$id) ? $mapping->$id : null;
 ?>
                                 <select name="<?php echo $id; ?>">
@@ -74,8 +68,12 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
 <?php
                             }
                         }
-?>
-					</td>
+
+                        // Field description?
+                        if (isset($jumpleadField['description']) && $jumpleadField['description']) {
+                            echo '<p class="description">' . $jumpleadField['description'] . '</p>';
+                        }
+?>					</td>
 				</tr>
 <?php
         }

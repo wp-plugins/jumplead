@@ -179,6 +179,7 @@ class JumpleadIntegration {
             'id'        => 'name',
             'name'      => 'Full Name',
             'required'  => true,
+            'description' => 'The first field should be the first or full name. The second should be last name or blank.',
             'sub'      => array(
                 array(
                     'id'        => 'name_last',
