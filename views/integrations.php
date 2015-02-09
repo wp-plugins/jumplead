@@ -12,7 +12,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
             <div class="alignleft actions bulkactions">
                 <label for="bulk-action-selector-bottom" class="screen-reader-text">Select bulk action</label>
                 <select name="bulkaction">
-                    <option>Bulk Actions</option>
+                    <option value="">Bulk Actions</option>
                     <option value="unlink">Unlink</option>
                 </select>
 
@@ -119,7 +119,7 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
             <div class="alignleft actions bulkactions">
                 <label for="bulk-action-selector-bottom" class="screen-reader-text">Select bulk action</label>
                 <select name="bulkaction2">
-                    <option>Bulk Actions</option>
+                    <option value="">Bulk Actions</option>
                     <option value="unlink">Unlink</option>
                 </select>
 

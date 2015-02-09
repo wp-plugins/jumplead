@@ -188,7 +188,7 @@ class Jumplead
                 // Bottom Bulkaction dropdown
                 $bulkaction = isset($_POST['bulkaction2']) ? $_POST['bulkaction2'] : null;
             }
-            $forms      = isset($_POST['forms']) ? $_POST['forms'] : null;
+            $forms = isset($_POST['forms']) ? $_POST['forms'] : null;
 
             if ($bulkaction) {
                 switch ($bulkaction) {
