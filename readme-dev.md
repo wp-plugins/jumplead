@@ -7,6 +7,12 @@
 * [http://192.168.59.103](http://192.168.59.103)
 * Add ```define('WP_DEBUG', true);``` to wp-config.php
 
+## Coding Standards
+
+* Install: ```composer create-project wp-coding-standards/wpcs:dev-master --no-dev```
+* Show: ```phpcs ./ -n --standard=WordPress```
+* Fix: ``` phpcbf ./ --standard=WordPress```;
+
 
 ## Integrations
 

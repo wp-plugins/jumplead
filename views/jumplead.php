@@ -5,11 +5,11 @@ include(JUMPLEAD_PATH_VIEW . 'includes/message.php');
 ?>
 
     <header>
-        <img id="jumplead_logo" src="<?php echo Jumplead::$path; ?>/assets/robot-white.png" />
+        <img id="jumplead_logo" src="<?php echo esc_attr( Jumplead::$path ); ?>/assets/robot-white.png" />
 
         <div class="links">
 <?php
-if (!get_option('jumplead_tracker_id', null)) {
+if ( ! get_option( 'jumplead_tracker_id', null ) ) {
 ?>
             <a href="http://jumplead.com/join-us" target="_blank">Create Free Account</a>
 <?php
@@ -50,103 +50,103 @@ if (!get_option('jumplead_tracker_id', null)) {
 
         <div class="grid">
             <div class="feature">
-            	<hgroup>
-            	    <h2>
-            	        <a href="http://jumplead.com/features/visitor-identification" target="_blank">Identify, chat and connect.</a>
+                <hgroup>
+                    <h2>
+                        <a href="http://jumplead.com/features/visitor-identification" target="_blank">Identify, chat and connect.</a>
                     </h2>
-            		<h3>Prospect Identification.</h3>
-            	</hgroup>
+                    <h3>Prospect Identification.</h3>
+                </hgroup>
 
-            	<a href="http://jumplead.com/features/visitor-identification" target="_blank">
-            	    <img src="http://jumplead.com/i/feature-grid-identify.jpg" alt="Visitor Identification">
-            	</a>
+                <a href="http://jumplead.com/features/visitor-identification" target="_blank">
+                    <img src="http://jumplead.com/i/feature-grid-identify.jpg" alt="Visitor Identification">
+                </a>
 
-            	<p>Identify and connect with prospects while they are active on your website; be in the right place at the right time.</p>
+                <p>Identify and connect with prospects while they are active on your website; be in the right place at the right time.</p>
             </div>
 
             <div class="clear"></div>
 
             <div class="feature">
-            	<hgroup>
-            	    <h2>
-            	        <a href="http://jumplead.com/features/landing-pages" target="_blank">Convert visitors to leads.</a>
+                <hgroup>
+                    <h2>
+                        <a href="http://jumplead.com/features/landing-pages" target="_blank">Convert visitors to leads.</a>
                     </h2>
-            		<h3>Conversion Forms and Pages.</h3>
-            	</hgroup>
+                    <h3>Conversion Forms and Pages.</h3>
+                </hgroup>
 
-            	<a href="http://jumplead.com/features/landing-pages" target="_blank">
-            	    <img src="http://jumplead.com/i/feature-grid-convert.jpg" alt="Landing Pages">
+                <a href="http://jumplead.com/features/landing-pages" target="_blank">
+                    <img src="http://jumplead.com/i/feature-grid-convert.jpg" alt="Landing Pages">
                 </a>
 
-            	<p>Capture and profile your leads across web forms. Create, manage and score them automatically.</p>
+                <p>Capture and profile your leads across web forms. Create, manage and score them automatically.</p>
             </div>
 
             <div class="clear"></div>
 
             <div class="feature" >
-            	<hgroup>
-            	    <h2>
-            	        <a href="http://jumplead.com/features/automations" target="_blank">Trigger targeted marketing.</a>
-            	   </h2>
+                <hgroup>
+                    <h2>
+                        <a href="http://jumplead.com/features/automations" target="_blank">Trigger targeted marketing.</a>
+                   </h2>
                    <h3>Marketing Automation.</h3>
-            	</hgroup>
+                </hgroup>
 
-        	    <a href="http://jumplead.com/features/automations" target="_blank">
-        	        <img src="http://jumplead.com/i/feature-grid-automation.jpg" alt="Marketing Automations">
+                <a href="http://jumplead.com/features/automations" target="_blank">
+                    <img src="http://jumplead.com/i/feature-grid-automation.jpg" alt="Marketing Automations">
                 </a>
 
-            	<p>Use lead activity to automate sales team notifications, nurture autoresponders and lifecycle stage changes.</p>
+                <p>Use lead activity to automate sales team notifications, nurture autoresponders and lifecycle stage changes.</p>
             </div>
 
             <div class="clear"></div>
 
             <div class="feature">
-            	<hgroup>
-            	    <h2>
-            	        <a href="http://jumplead.com/features/email-marketing" target="_blank">Nurture leads with email.</a>
+                <hgroup>
+                    <h2>
+                        <a href="http://jumplead.com/features/email-marketing" target="_blank">Nurture leads with email.</a>
                     </h2>
                     <h3>Broadcasts and Autoresponders.</h3>
-            	</hgroup>
+                </hgroup>
 
                 <a href="http://jumplead.com/features/email-marketing" target="_blank">
-            	    <img src="http://jumplead.com/i/feature-grid-email.jpg" alt="Email Campaigns">
-            	</a>
+                    <img src="http://jumplead.com/i/feature-grid-email.jpg" alt="Email Campaigns">
+                </a>
 
-            	<p>Nurture leads through sales funnel stages based upon their individual activity; by sales stage or custom tags.</p>
+                <p>Nurture leads through sales funnel stages based upon their individual activity; by sales stage or custom tags.</p>
             </div>
 
             <div class="clear"></div>
 
             <div class="feature" >
-            	<hgroup>
-            	    <h2>
-            	        <a href="http://jumplead.com/features/contacts" target="_blank">Score and manage leads.</a>
+                <hgroup>
+                    <h2>
+                        <a href="http://jumplead.com/features/contacts" target="_blank">Score and manage leads.</a>
                     </h2>
                     <h3>Contacts and Lifecycle Stages.</h3>
                 </hgroup>
 
-            	<a href="http://jumplead.com/features/contacts" target="_blank">
-                	<img src="http://jumplead.com/i/feature-grid-contacts.jpg" alt="Contact Management CRM">
-            	</a>
+                <a href="http://jumplead.com/features/contacts" target="_blank">
+                    <img src="http://jumplead.com/i/feature-grid-contacts.jpg" alt="Contact Management CRM">
+                </a>
 
-            	<p>Contact profiles that are kept up to date by the information gathered from web forms, and scored for engagement.</p>
+                <p>Contact profiles that are kept up to date by the information gathered from web forms, and scored for engagement.</p>
             </div>
 
             <div class="clear"></div>
 
             <div class="feature">
-            	<hgroup>
-            	    <h2>
-            	        <a href="http://jumplead.com/features/analytics" target="_blank">Track and improve performance.</a>
-            	   </h2>
-            	   <h3 >Marketing Analytics.</h3>
+                <hgroup>
+                    <h2>
+                        <a href="http://jumplead.com/features/analytics" target="_blank">Track and improve performance.</a>
+                   </h2>
+                   <h3 >Marketing Analytics.</h3>
                 </hgroup>
 
                 <a href="http://jumplead.com/features/analytics" target="_blank">
                     <img src="http://jumplead.com/i/feature-grid-analytics.jpg" alt="Analytics">
                 </a>
 
-            	<p>Monitor conversion rates, traffic and campaigns. Track your search results positions for important phrases.</p>
+                <p>Monitor conversion rates, traffic and campaigns. Track your search results positions for important phrases.</p>
             </div>
         </div>
 

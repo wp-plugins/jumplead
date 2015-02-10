@@ -29,10 +29,10 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 /**
  * Define Constants for Jumplead Plugin
  */
-define('JUMPLEAD_VERSION', '3.1.1');
-define('JUMPLEAD_PATH', dirname(__FILE__) . '/');
-define('JUMPLEAD_PATH_SRC', JUMPLEAD_PATH . 'Jumplead/');
-define('JUMPLEAD_PATH_VIEW', JUMPLEAD_PATH . 'views/');
+define( 'JUMPLEAD_VERSION', '3.1.1' );
+define( 'JUMPLEAD_PATH', dirname( __FILE__ ) . '/' );
+define( 'JUMPLEAD_PATH_SRC', JUMPLEAD_PATH . 'Jumplead/' );
+define( 'JUMPLEAD_PATH_VIEW', JUMPLEAD_PATH . 'views/' );
 
 /**
  * Load required files

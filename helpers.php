@@ -6,8 +6,8 @@
  * @param string $text Message to add to comment.
  * @return string The HTML comment.
  */
-function jumplead_comment($text) {
-    return '<!-- Jumplead: ' . $text . '; Wordpress Plugin v' . JUMPLEAD_VERSION . ' -->' . PHP_EOL;
+function echo_jumplead_comment($text) {
+	echo wp_kses( '<!-- Jumplead: ' . $text . '; Wordpress Plugin v' . JUMPLEAD_VERSION . ' -->' . PHP_EOL, true );
 }
 
 
@@ -19,13 +19,13 @@ function jumplead_comment($text) {
  * @return boolean True if tracker seems valid, false otherwise
  */
 function jumplead_is_tracker_id_valid($tracker_id = null) {
-    $tracker_id = trim($tracker_id === null ? get_option('jumplead_tracker_id', '') : $tracker_id);
+	$tracker_id = trim( $tracker_id === null ? get_option( 'jumplead_tracker_id', '' ) : $tracker_id );
 
-    if ($tracker_id && is_string($tracker_id) && strlen($tracker_id) > 10) {
-        return true;
-    }
+	if ( $tracker_id && is_string( $tracker_id ) && strlen( $tracker_id ) > 10 ) {
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
 

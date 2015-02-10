@@ -1,31 +1,35 @@
 <?php
 include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
+
+// @codingStandardsIgnoreStart
+$formAction = $_SERVER['REQUEST_URI'];
+// @codingStandardsIgnoreEnd
 ?>
 
-	<form name="jumplead_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+	<form name="jumplead_form" method="post" action="<?php echo esc_attr( $formAction ); ?>">
         <h3>Tracking</h3>
         <p>
             Once you've entered your Tracker ID, we'll automatically embed the Jumplead tracking code on every page.
         </p>
 
-		<table class="form-table">
-			<tbody>
-				<tr>
-					<th>
-					    <label for="jumplead_tracker_id">Tracker ID</label><br />
-					</th>
-					<td>
-						<input
-						    type="text" id="tracker_id" name="tracker_id" class="regular-text"
-						    value="<?php echo $tracker_id ?>" size="20"
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="jumplead_tracker_id">Tracker ID</label><br />
+                    </th>
+                    <td>
+                        <input
+                            type="text" id="tracker_id" name="tracker_id" class="regular-text"
+						    value="<?php echo esc_attr( $tracker_id ); ?>" size="20"
                         >
-						<p class="description">
-						    <a href="https://app.jumplead.com/settings/tracking-code" target="_blank">Get your tracking code</a>
-						</p>
-					</td>
-				</tr>
+                        <p class="description">
+                            <a href="https://app.jumplead.com/settings/tracking-code" target="_blank">Get your tracking code</a>
+                        </p>
+                    </td>
+                </tr>
             </tbody>
-		</table>
+        </table>
 
         <hr />
 
@@ -45,37 +49,37 @@ include(JUMPLEAD_PATH_VIEW . 'includes/header.php');
         <hr />
 
         <h3>Create Contacts from Comments</h3>
-		<table class="form-table">
-			<tbody>
-				<tr>
-					<th>
-					    <label for="jumplead_contacts_from_comments">
-					        Enable
-					    </label>
-					</th>
-					<td>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="jumplead_contacts_from_comments">
+                            Enable
+                        </label>
+                    </th>
+                    <td>
                         <fieldset>
                             <label for="capture_comments">
                                 <input name="capture_comments" type="checkbox" value="1"
                                 <?php
-                                if ($capture_comments) {
-                                    echo 'checked="checked"';
-                                }
-                                ?>
+								if ( $capture_comments ) {
+									echo 'checked="checked"';
+								}
+								?>
                                 >
                             </label>
                         </fieldset>
-					</td>
-				</tr>
+                    </td>
+                </tr>
             </tbody>
-		</table>
+        </table>
 
         <hr />
 
-		<p class="submit">
-		    <input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes">
-		</p>
-	</form>
+        <p class="submit">
+            <input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes">
+        </p>
+    </form>
 <?php
 include(JUMPLEAD_PATH_VIEW . 'includes/footer.php');
 ?>

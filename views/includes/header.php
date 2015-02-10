@@ -2,7 +2,7 @@
     <header id="jumplead_header">
         <div class="links">
 <?php
-if (!get_option('jumplead_tracker_id', null)) {
+if ( ! get_option( 'jumplead_tracker_id', null ) ) {
 ?>
             <a href="http://jumplead.com/join-us" target="_blank">Create Free Account</a>
 <?php
@@ -12,8 +12,8 @@ if (!get_option('jumplead_tracker_id', null)) {
         </div>
 
         <h2>
-            <img id="jumplead_logo" src="<?php echo Jumplead::$path; ?>/assets/robot-white.png" />
-            <?php echo isset($h2) ? $h2 : 'Jumplead'; ?>
+            <img id="jumplead_logo" src="<?php echo esc_attr( Jumplead::$path ); ?>/assets/robot-white.png" />
+            <?php echo esc_html( isset($h2) ? $h2 : 'Jumplead' ); ?>
         </h2>
     </header>
 <?php
