@@ -1,0 +1,7 @@
+containers:
+    jumplead_wordpress:
+        image: tutum/wordpress
+        run:
+            publish: ["80:80"]
+            volume: [".:/var/www/html/wp-content/plugins/jumplead/"]
+            detach: true
