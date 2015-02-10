@@ -261,7 +261,7 @@ class Jumplead
                     $mapping->automation_id = $_POST['automation_id'];
 
                     // Track fields from form that are matched
-                    $fieldsInUse = [];
+                    $fieldsInUse = array();
 
                     // Loop the fields
                     foreach (JumpleadIntegration::$fields as $field) {
