@@ -2,12 +2,12 @@
 
 class JumpleadIntegrationContactForm7 extends JumpleadIntegration {
 
-	private $formTypesToIgnore = [
+	private $formTypesToIgnore = array(
 		'quiz',
 		'file',
 		'captchar',
 		'submit'
-	];
+	);
 
 	function __construct($data)
 	{
