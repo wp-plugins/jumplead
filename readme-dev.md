@@ -7,11 +7,54 @@
 * [http://192.168.59.103](http://192.168.59.103)
 * Add ```define('WP_DEBUG', true);``` to wp-config.php
 
+
+
+
+
+
+
+
+
+
+
 ## Coding Standards
 
-* Install: ```composer create-project wp-coding-standards/wpcs:dev-master --no-dev```
-* Show: ```phpcs ./ -n --standard=WordPress```
-* Fix: ``` phpcbf ./ --standard=WordPress```;
+We use THREE different coding standards checkers.
+
+### PHP Compatabilty
+
+[https://github.com/wimg/PHPCompatibility](https://github.com/wimg/PHPCompatibility)
+
+Supports PHPCS <2.
+
+* Install: ```composer install```
+* Run ```sh test.sh```
+* Fix: Not until it supports PHPCS 2+
+
+### WordPress Coding Standards
+
+[https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards)
+
+Spports PHPCS 2+ only.
+
+* Outside of this project's folder, Install: ```composer create-project wp-coding-standards/wpcs:dev-master --no-dev```
+* Run ```sh test.sh```
+* Fix: ``` phpcbf ./ --standard=WordPress```
+
+### Short Array Syntax Checker
+
+* Install: Nothing. Just a ```pcregrep``` command
+* Run ```sh test.sh```
+* Fix: Manual
+
+
+
+
+
+
+
+
+
 
 
 ## Integrations
@@ -19,7 +62,6 @@
 ### JetPack
 
 * Add ```define('JETPACK_DEV_DEBUG', true);``` to wp-config.php
-
 
 #### Sample Form
 
@@ -34,10 +76,14 @@
 
 #### Sample Form
 
-
 	<p>First Name (required)<br />[text* first-name] </p>
 	<p>Last Name (required)<br />[text* last-name]</p>
 	<p>Your Email (required<br />[email* your-email]</p>
 	<p>Company (required)<br />[text* company]</p>
 	<p>[submit "Send"]</p>
+	
+
+### Formidable
+
+* Create a form inside WordPress admin.
 

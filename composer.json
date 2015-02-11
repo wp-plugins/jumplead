@@ -1,0 +1,14 @@
+{
+    "name": "jumplead/wordpressplugin",
+    "authors": [
+        {
+            "name": "Jumplead",
+            "email": "hello@jumplead.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "wimg/php-compatibility": "dev-master",
+        "simplyadmire/composer-plugins" : "@dev"
+    }
+}

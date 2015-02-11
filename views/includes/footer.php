@@ -23,7 +23,7 @@
         <br class="clear" />
 
         <p class="copyright">
-            © Mooloop 2014
+            © Mooloop <?php echo esc_html( date( 'Y' ) ); ?>
         </p>
         <p class="links">
             <a href="http://jumplead.com/privacy" target="_blank">Privacy</a> |

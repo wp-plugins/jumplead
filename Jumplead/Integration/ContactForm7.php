@@ -6,7 +6,7 @@ class JumpleadIntegrationContactForm7 extends JumpleadIntegration {
 		'quiz',
 		'file',
 		'captchar',
-		'submit'
+		'submit',
 	);
 
 	function __construct($data)
