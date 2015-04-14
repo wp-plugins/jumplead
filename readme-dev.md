@@ -28,8 +28,8 @@ We use THREE different coding standards checkers.
 Supports PHPCS <2.
 
 * Install: ```composer install```
-* Run ```sh test.sh```
-* Fix: Not until it supports PHPCS 2+
+* Run ```sh codingstandards.sh```
+* Fix: Manual (until it supports PHPCS 2+)
 
 ### WordPress Coding Standards
 
@@ -37,14 +37,20 @@ Supports PHPCS <2.
 
 Spports PHPCS 2+ only.
 
-* Outside of this project's folder, Install: ```composer create-project wp-coding-standards/wpcs:dev-master --no-dev```
-* Run ```sh test.sh```
+* Outside of this project's folder, Install: 
+
+```
+composer create-project wp-coding-standards/wpcs:dev-master --no-dev;
+phpcs --config-set installed_paths <PATH TO WPCS>;
+```
+
+* Run ```sh codingstandards.sh```
 * Fix: ``` phpcbf ./ --standard=WordPress```
 
 ### Short Array Syntax Checker
 
 * Install: Nothing. Just a ```pcregrep``` command
-* Run ```sh test.sh```
+* Run ```sh codingstandards.sh```
 * Fix: Manual
 
 
