@@ -56,6 +56,49 @@ class JumpleadIntegration {
 	}
 
 	/**
+	 * List forms using WP_Query search
+	 *
+	 * @param array $queryOptions Criteria for search
+	 * @return mixed List of forms
+	 */
+	protected function list_forms_wp_query($queryOptions)
+	{
+		$return = array();
+
+		// Add pagination controll to WP_Query criteria
+		$queryPage = 1;
+		$queryOptions['posts_per_page'] = '10';
+		$queryOptions['paged'] = (string) $queryPage;
+
+		// Query
+		$query = new WP_Query( $queryOptions );
+
+		// Loop
+		while ( $query->have_posts() ) {
+			wp_reset_postdata();
+
+			// The Loop
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				$return[] = array(
+					'id'        => get_the_ID(),
+					'name'      => get_the_title(),
+					'fields'    => array(),
+				);
+			}
+
+			// Load next page's data
+			$queryPage++;
+			$queryOptions['paged'] = $queryPage;
+			$query = new WP_Query( $queryOptions );
+			wp_reset_postdata();
+		};
+
+		return $return;
+	}
+
+	/**
 	 * Get a specific form from integration
 	 * - To be overwritten by most
 	 *
