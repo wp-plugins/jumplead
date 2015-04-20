@@ -52,7 +52,7 @@ Create a [Free Account at Jumplead.com](http://jumplead.com "Jumplead inbound ma
 
 == Installation ==
 
-1. Upload 'jumplead' to the '/wp-content/plugins/' directory
+1. Install directly from WordPress plugins directory or upload to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enter your Jumplead tracker id from Jumplead Settings
 
@@ -117,7 +117,7 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 * Updated FAQs.
 
 = 2.0 =
-* Added [jumplead_form] short tag for embeding forms.
+* Added [jumplead_form] short tag for embedding forms.
 * Updated tracking code.
 * Updated banner.
 
@@ -130,7 +130,7 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 = 1.1 =
 * Updated Description
 * Updated Plugin URL
-* Updated Compatability and Requirement versions
+* Updated Compatibility and Requirement versions
 
 = 1.0 =
 * First Version
@@ -138,10 +138,10 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 == Upgrade Notice ==
 
 = 2.4 =
-No compatability changes.
+No compatibility changes.
 
 = 1.1 =
-Updated Compatability and Requirements
+Updated Compatibility and Requirements
 
 = 1.0 =
 Initial version!
