@@ -39,8 +39,9 @@ class Jumplead
 		self::$tableFieldMapping = $wpdb->prefix . 'jumplead_mapping';
 
 		// Install
-		register_activation_hook( self::$plugin, 'Jumplead::activate' );
-		register_deactivation_hook( self::$plugin, 'Jumplead::deactivate' );
+		register_activation_hook( self::$plugin, 'Jumplead::handle_activate' );
+		register_deactivation_hook( self::$plugin, 'Jumplead::handle_deactivate' );
+		register_uninstall_hook( self::$plugin, 'Jumplead::handle_uninstall' );
 
 		// Admin
 		add_action( 'admin_menu', 'Jumplead::admin_menu' );
@@ -104,7 +105,7 @@ class Jumplead
 	static function show_page_jumplead()
 	{
 		$h2 = 'Jumplead';
-	    include(JUMPLEAD_PATH_VIEW . 'jumplead.php');
+		include(JUMPLEAD_PATH_VIEW . 'jumplead.php');
 	}
 
 	/**
@@ -132,14 +133,14 @@ class Jumplead
 				$tracker_id = trim( esc_html( $_POST['tracker_id'] ) );
 
 				if ( jumplead_is_tracker_id_valid( $tracker_id ) ) {
-				    update_option( 'jumplead_tracker_id', $tracker_id );
-				    $info[] = 'Settings Saved!';
+					update_option( 'jumplead_tracker_id', $tracker_id );
+					$info[] = 'Settings Saved!';
 					$invalidTrackerId = false;
 				}
 			}
 
 			if ( $invalidTrackerId ) {
-			    $errors[] = 'Tracker ID is not valid.';
+				$errors[] = 'Tracker ID is not valid.';
 			}
 		}
 
@@ -154,7 +155,7 @@ class Jumplead
 		}
 
 		// View
-	    include(JUMPLEAD_PATH_VIEW . 'settings.php');
+		include(JUMPLEAD_PATH_VIEW . 'settings.php');
 	}
 
 	/**
@@ -230,7 +231,7 @@ class Jumplead
 			$formCount += count( $forms );
 		}
 
-	    include(JUMPLEAD_PATH_VIEW . 'integrations.php');
+		include(JUMPLEAD_PATH_VIEW . 'integrations.php');
 	}
 
 	/**
@@ -324,8 +325,8 @@ class Jumplead
 					}
 				}
 
-		        include(JUMPLEAD_PATH_VIEW . 'integrations-mapping.php');
-		    }
+				include(JUMPLEAD_PATH_VIEW . 'integrations-mapping.php');
+			}
 		}
 	}
 
@@ -336,7 +337,7 @@ class Jumplead
 	 *
 	 * @return void
 	 */
-	static function activate()
+	static function handle_activate()
 	{
 		self::handle_multi_site( 'activate' );
 	}
@@ -346,22 +347,32 @@ class Jumplead
 	 *
 	 * @return void
 	 */
-	static function deactivate()
+	static function handle_deactivate()
 	{
 		self::handle_multi_site( 'deactivate' );
 	}
 
 	/**
-	 * Installation script
+	 * Plugin uninstall hook.
+	 *
+	 * @return void
+	 */
+	static function handle_uninstall()
+	{
+		self::handle_multi_site( 'uninstall' );
+	}
+
+	/**
+	 * Activatation script
 	 * - Creates DB tables
 	 * - Sets Jumplead verion in DB
 	 *
 	 * @return void
 	 */
-	static function install()
+	static function activate()
 	{
 		if ( JUMPLEAD_VERSION != get_site_option( 'jumplead_version' ) ) {
-		    global $wpdb;
+			global $wpdb;
 
 			$charset_collate = '';
 
@@ -375,20 +386,29 @@ class Jumplead
 
 			// Mappings
 			$sql = 'CREATE TABLE ' . self::$tableFieldMapping . " (
-                `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                `integration_id` varchar(100) NOT NULL,
-                `form_id` int NOT NULL,
-                `automation_id` varchar(100),
-                `name` varchar(255),
-                `name_last` varchar(255),
-                `email` varchar(255),
-                `company` varchar(255)
-            ) $charset_collate;";
+				`id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				`integration_id` varchar(100) NOT NULL,
+				`form_id` int NOT NULL,
+				`automation_id` varchar(100),
+				`name` varchar(255),
+				`name_last` varchar(255),
+				`email` varchar(255),
+				`company` varchar(255)
+			) $charset_collate;";
 
 			dbDelta( $sql );
 
 			update_option( 'jumplead_version', JUMPLEAD_VERSION );
 		}
+	}
+	/**
+	 * Deactivation script
+	 *
+	 * @return void
+	 */
+	static function deactivate()
+	{
+		// Nothing, right now.
 	}
 
 	/**
@@ -414,6 +434,7 @@ class Jumplead
 	/**
 	 * Runs an aution on single and multi-site installs
 	 *
+	 * @param string $action The account's name.
 	 * @return void
 	 */
 	static function handle_multi_site($action)
@@ -438,14 +459,8 @@ class Jumplead
 					switch_to_blog( $blogId );
 					// @codingStandardsIgnoreEnd
 
-					switch ( $action ) {
-					    case 'activate':
-							self::install();
-							break;
-						case 'deactivate':
-						    self::uninstall();
-						    break;
-					}
+					// Run the action on this site
+					self::handle_multi_site_action( $action );
 				}
 
 				// @codingStandardsIgnoreStart
@@ -456,14 +471,28 @@ class Jumplead
 			}
 		}
 
-		// Current WordPress only
+		// Run action on Current WordPress site
+		self::handle_multi_site_action( $action );
+	}
+
+	/**
+	 * Runs an aution on single and multi-site installs
+	 *
+	 * @param string $action The account's name.
+	 * @return void
+	 */
+	static function handle_multi_site_action($action)
+	{
 		switch ( $action ) {
-		    case 'activate':
-				self::install();
+			case 'activate':
+				self::activate();
 				break;
 			case 'deactivate':
-			    self::uninstall();
-			    break;
+				self::deactivate();
+				break;
+			case 'uninstall':
+				self::uninstall();
+				break;
 		}
 	}
 }

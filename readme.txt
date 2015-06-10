@@ -4,7 +4,7 @@ Donate link: http://jumplead.com
 Tags: analytics,auto responders,autoresponders,chat,chat,contact form,CRM,drip campaigns,email,email autoresponders,email marketing,email nurture,form,free,in bound,in-bound,inbound,inbound marketing,inbound-marketing,javascript,jumplead,lead generation,linkedin,mail,marketing,marketing automation,marketing-automation,newsletter,notification,plugin,shortcode,shortcodes,social media,statistics,stats,tracking,twitter,widget,widgets,jetpack,formidable,contact form 7,cf7
 Requires at least: 2.8.6
 Tested up to: 4.0
-Stable tag: 3.1.2
+Stable tag: 3.1.4
 
 Full Inbound Marketing Automation for WordPress.
 Visitor ID, Chat, Conversion Forms, email Autoresponders and Broadcasts, Contact CRM and Analytics.
@@ -52,7 +52,7 @@ Create a [Free Account at Jumplead.com](http://jumplead.com "Jumplead inbound ma
 
 == Installation ==
 
-1. Upload 'jumplead' to the '/wp-content/plugins/' directory
+1. Install directly from WordPress plugins directory or upload to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enter your Jumplead tracker id from Jumplead Settings
 
@@ -117,7 +117,7 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 * Updated FAQs.
 
 = 2.0 =
-* Added [jumplead_form] short tag for embeding forms.
+* Added [jumplead_form] short tag for embedding forms.
 * Updated tracking code.
 * Updated banner.
 
@@ -130,7 +130,7 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 = 1.1 =
 * Updated Description
 * Updated Plugin URL
-* Updated Compatability and Requirement versions
+* Updated Compatibility and Requirement versions
 
 = 1.0 =
 * First Version
@@ -138,10 +138,10 @@ From the 'Settings' page simply click the 'Enable' checkbox.
 == Upgrade Notice ==
 
 = 2.4 =
-No compatability changes.
+No compatibility changes.
 
 = 1.1 =
-Updated Compatability and Requirements
+Updated Compatibility and Requirements
 
 = 1.0 =
 Initial version!

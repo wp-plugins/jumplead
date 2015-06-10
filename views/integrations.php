@@ -18,6 +18,12 @@ if ( $formCount > 0 ) {
 
 			<input type="submit" class="button action" value="Apply">
 		</div>
+
+        <div class="tablenav-pages one-page">
+			<span class="displaying-num">
+			    <?php echo esc_html( $formCount ); ?> <?php echo esc_html( ($formCount == 1) ? 'form' : 'forms' ); ?>
+			 </span>
+		</div>
 	</div>
 
 	<table class="wp-list-table widefat fixed posts">
